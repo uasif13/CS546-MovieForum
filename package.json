@@ -1,0 +1,26 @@
+{
+  "name": "CS546-MovieForum",
+  "version": "1.0.0",
+  "description": "Repo for CS546 Final Group Project",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jordang7/CS546-MovieForum.git"
+  },
+  "keywords": [],
+  "author": "Movie Forum Group",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jordang7/CS546-MovieForum/issues"
+  },
+  "homepage": "https://github.com/jordang7/CS546-MovieForum#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^5.2.0",
+    "mongodb": "^3.6.3"
+  }
+}

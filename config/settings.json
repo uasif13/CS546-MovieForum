@@ -1,0 +1,6 @@
+{
+    "mongoConfig": {
+        "serverUrl": "mongodb://localhost:2017",
+        "database": "FilmCult"
+    }
+}

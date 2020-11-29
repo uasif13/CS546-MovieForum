@@ -1,0 +1,1 @@
+// This is a dummy js file. Put files in this directory if you want it to be client-side rendered 

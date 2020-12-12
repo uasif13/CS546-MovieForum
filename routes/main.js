@@ -1,7 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const data = require("../data");
+const bcrypt = require("bcrypt");
 const userData = data.users;
+const mongoCollections = require("../config/mongoCollections");
+const users = mongoCollections.users;
 function ciEquals(a, b) {
   return typeof a === "string" && typeof b === "string"
     ? a.localeCompare(b, undefined, { sensitivity: "accent" }) === 0
@@ -24,14 +27,21 @@ router.get("/", async (req, res) => {
 router.get("/signup", async (req, res) => {
   res.render("partials/signup", { title: "Signup!" });
 });
+router.get("/login", async (req, res) => {
+  res.render("partials/login", { title: "login!" });
+});
+router.get("/trending", async (req, res) => {
+  res.render("partials/trending", { title: "trending!" });
+});
 router.post("/login", async (req, res) => {
   let found = false;
+  const users = await userData.getUsersAll();
   if (req.body.username && req.body.password) {
     if (!req.session.user) {
       for (let i = 0; i < users.length; i++) {
         if (
           users[i].username === req.body.username &&
-          bcrypt.compareSync(req.body.password, users[i].hashedPassword)
+          bcrypt.compareSync(req.body.password, users[i].password)
         ) {
           found = true;
         }

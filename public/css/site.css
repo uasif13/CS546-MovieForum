@@ -1,1 +1,5 @@
 /* Insert Css here */
+#homeLink,
+#recommendations {
+  display: none;
+}

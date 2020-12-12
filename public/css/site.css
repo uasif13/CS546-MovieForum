@@ -3,3 +3,16 @@
 #recommendations {
   display: none;
 }
+
+.navBar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.navBar ul li {
+  display: inline;
+}
+
+.navBar {
+  background-color: gray;
+}

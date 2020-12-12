@@ -35,6 +35,8 @@ module.exports = {
       username: username,
       email: email,
       password: hashedPass,
+      postsArray: [],
+      moviesRated: {}
     };
     const insertInfo = await userCollection.insertOne(user);
     if (insertInfo.insertedCount === 0) {

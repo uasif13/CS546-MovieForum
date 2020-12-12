@@ -7,7 +7,7 @@ const constructor = (app) => {
     // Add routes with app.use
     app.use("/", mainRoutes)
     app.use("/search", searchRoutes)
-    app.use("/post", postsRoutes)
+    app.use("/posts", postsRoutes)
     app.use("*", (req,res) => {
         res.status(404).json({error: "Not found"});
     });

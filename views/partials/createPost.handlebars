@@ -1,0 +1,17 @@
+<h1>Create a new Post</h1>
+<form action="/posts" method="POST" class="createPost">
+    <label id="titleLabel">
+        <input type="text" placeholder="Title">
+    </label>
+    <label id="descriptionLabel">
+        <input type="text" placeholder="Description">
+    </label>
+    <label id="movieLabel">
+        <input list="movieList" name="movie">
+        <datalist id="movieList">
+            {{#each movie}}
+            <option value={{this}}>
+                {{/each}}
+        </datalist>
+    </label>
+</form>

@@ -3,3 +3,25 @@
 #recommendations {
   display: none;
 }
+
+.navBar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.navBar ul li {
+  display: inline;
+}
+
+.navBar {
+  background-color: #A9A9A9;
+}
+
+.footer {
+  background-color: #A9A9A9;
+}
+
+.logo {
+  width: 64px;
+  height: 48px;
+}

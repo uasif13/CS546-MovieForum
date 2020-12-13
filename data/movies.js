@@ -4,7 +4,7 @@ const movies = mongoCollections.movies;
 
 function sProvided(param, paramName) {
     if (!param && typeof param !== "string") {
-        throw `Invalid ${paramName}`
+        throw `Invalid movie ${paramName}`
     }
 }
 
@@ -73,8 +73,5 @@ module.exports = {
         }
         const revisedMovie = await this.getMovie(parsedID);
         return revisedMovie;
-    }
-
-
-
+    },
 }

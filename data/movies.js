@@ -25,7 +25,7 @@ module.exports = {
             budget: budget
         }
         const moviesCollection = await movies();
-        const insertInfo = await moviesCollection.insertOne(user);
+        const insertInfo = await moviesCollection.insertOne(movie);
         if (insertInfo.inserted === 0) {
             throw 'Movie has not been inserted'
         }

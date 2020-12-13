@@ -14,8 +14,8 @@ const getCollection = (collection) => {
 };
 
 module.exports = {
-  //   movies: getCollection("movies"),
+  movies: getCollection("movies"),
   users: getCollection("users"),
-  //   posts: getCollection("posts"),
+  posts: getCollection("posts"),
   comments: getCollection("comments"),
 };

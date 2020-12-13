@@ -62,4 +62,8 @@ module.exports = {
       });
       // need to call a function to update post replies to empty array
   },
+
+  async editComment(commentId){
+      
+  }
 };

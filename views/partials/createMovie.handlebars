@@ -1,45 +1,64 @@
 <div class="navBar">
-    <img alt="FilmCult" src="../../public/assets/titleIcon.svg" width="48" height="64">
+    <a href="/trending"><img alt="FilmCult" src="../../public/assets/titleIcon.svg" class="logo"></a>
     <form action="/search" method="POST" class="searchForm">
         <input type="text" value="Look up movie,post,user..." class="searchFormInput" />
         <button type="submit"><img alt="search" src="../../public/assets/searchIcon.svg"></button>
     </form>
     <a href="/userProfile" id="userProfile">Go to Your User Page</a>
 </div>
-<h1>Add a new Movie</h1>
-<form action="/movies" method="POST" class="movieForm">
-    <label id="labelMovieTitle">
-        Title
-        <input type="text" name="title" id="movieTitleInput" />
-    </label>
-    <label id="labelMovieDescription">
-        Description
-        <input type="text" name="description" id="movieDescriptionInput" />
-    </label>
-    <label id="labelMovieBudget">
-        Budget
-        <input type="number" name="budget" id="movieBudgetInput" />
-    </label>
-    <label id="labelMovieImage">
-        Image URL
-        <input type="text" name="image" id="movieImageInput" />
-    </label>
-    <div class="checkBoxes" id="movieBoxes">
-        <label><input type="checkbox" name="genres[]" value="adventure" />Adventure</label>
-        <label><input type="checkbox" name="genres[]" value="action" />Action</label>
-        <label><input type="checkbox" name="genres[]" value="drama" />Drama</label>
-        <label><input type="checkbox" name="genres[]" value="comedy" />Comedy</label>
-        <label><input type="checkbox" name="genres[]" value="thriller" />Thriller</label>
-        <label><input type="checkbox" name="genres[]" value="horror" />Horror</label>
-        <label><input type="checkbox" name="genres[]" value="romcom" />Romantic Comedy</label>
-        <label><input type="checkbox" name="genres[]" value="musical" />Musical</label>
-        <label><input type="checkbox" name="genres[]" value="documentary" />Documentary</label>
-        <label><input type="checkbox" name="genres[]" value="romance" />Romance</label>
-        <label><input type="checkbox" name="genres[]" value="animation" />Animation</label>
-        <label><input type="checkbox" name="genres[]" value="scifi" />Science Fiction</label>
+<div>
+    <div>
+        <h2>Before creating a post, please select a movie</h2>
+        <form id="searchMovieForm">
+            <label>
+                <input id="searchMovieQuery">
+            </label>
+            <button type="submit"><img alt="search" src="../../public/assets/searchIcon.svg"></button>
+        </form>
+        <h3 id="apiMovieListHeader" hidden>Movies from TMDB API</h3>
+        <ul id="apiMovieList" hidden></ul>
+        <h3 id="mongoMovieListHeader" hidden>Movies from FilmCult</h3>
+        <ul id="mongoMovieList" hidden></ul>
+
     </div>
-    <button class="formButtons" id="movieButton" type="submit">Create Movie</button>
-</form>
+    <div>
+        <h2>If the movie was not available above, create a movie</h2>
+        <form action="/movies" method="POST" class="movieForm">
+            <label id="labelMovieTitle">
+                Title
+                <input type="text" name="title" id="movieTitleInput" />
+            </label>
+            <label id="labelMovieDescription">
+                Description
+                <input type="text" name="description" id="movieDescriptionInput" />
+            </label>
+            <label id="labelMovieBudget">
+                Budget
+                <input type="number" name="budget" id="movieBudgetInput" />
+            </label>
+            <label id="labelMovieImage">
+                Image URL
+                <input type="file" name="image" id="movieImageInput" />
+            </label>
+            <div class="checkBoxes" id="movieBoxes">
+                <label><input type="checkbox" name="genres[]" value="adventure" />Adventure</label>
+                <label><input type="checkbox" name="genres[]" value="action" />Action</label>
+                <label><input type="checkbox" name="genres[]" value="drama" />Drama</label>
+                <label><input type="checkbox" name="genres[]" value="comedy" />Comedy</label>
+                <label><input type="checkbox" name="genres[]" value="thriller" />Thriller</label>
+                <label><input type="checkbox" name="genres[]" value="horror" />Horror</label>
+                <label><input type="checkbox" name="genres[]" value="romcom" />Romantic Comedy</label>
+                <label><input type="checkbox" name="genres[]" value="musical" />Musical</label>
+                <label><input type="checkbox" name="genres[]" value="documentary" />Documentary</label>
+                <label><input type="checkbox" name="genres[]" value="romance" />Romance</label>
+                <label><input type="checkbox" name="genres[]" value="animation" />Animation</label>
+                <label><input type="checkbox" name="genres[]" value="scifi" />Science Fiction</label>
+            </div>
+            <button class="formButtons" id="movieButton" type="submit">Create Movie</button>
+        </form>
+    </div>
+</div>
 <footer class="footer">
-    <p>FilmCult</p>
+    <p>We need to make this part hella cool</p>
+    <p>We could add modals of bios for each of us</p>
 </footer>

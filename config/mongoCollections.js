@@ -17,5 +17,5 @@ module.exports = {
   //   movies: getCollection("movies"),
   users: getCollection("users"),
   //   posts: getCollection("posts"),
-  //   replies: getCollection("replies"),
+  comments: getCollection("comments"),
 };

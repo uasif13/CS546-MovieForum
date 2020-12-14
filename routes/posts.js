@@ -27,4 +27,15 @@ router.get("/movieSelection", async (req, res) => {
 //   }
 // });
 
+router.get("/:id", async (req, res) => {
+  const post = await postsData.getPost(req.params.id);
+  const movie = await moviesData.getMovie(post.postMovieId);
+  res.render("partials/postDetail", {
+    title: post.postTitle,
+    post: post,
+    movie: movie,
+  });
+});
+router.post("/", async (req, res) => {});
+
 module.exports = router;

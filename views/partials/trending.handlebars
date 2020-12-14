@@ -8,14 +8,26 @@
 </div>
 <h1>trending page</h1>
 <a href="/movies/" id="postLink">Create post</a>
-<ul id="movieList">
+<ul class="posts">
+    {{#each posts}}
+    <li>
+        <a href="/posts/{{this._id}}">{{this.postTitle}}: Author: {{this.authorName}}</a>
+        <ul>
+            <li>
+                {{this.postBody}}
+            </li>
+        </ul>
+    </li>
+    {{/each}}
 </ul>
-<div id="movie">
+{{!-- <div id="movie"> --}}
 </div>
+{{!--
+
 <ul id="recommendations">
     <h3>Recommendations</h3>
-</ul>
-<a href="/" id="homeLink">Back to All Shows</a>
+</ul> --}}
+<a href="/trending" id="homeLink">Back to All Shows</a>
 <footer class="footer">
     <p>FilmCult</p>
 </footer>

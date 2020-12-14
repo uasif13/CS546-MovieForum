@@ -1,18 +1,18 @@
-const {ObjectID} = require("mongodb");
-const mongoCollections = require("../config/mongoCollections")
+const { ObjectID } = require("mongodb");
+const mongoCollections = require("../config/mongoCollections");
 const posts = mongoCollections.posts;
-const movieMethods = require("./movies")
-const userMethods = require("./users")
+const movieMethods = require("./movies");
+const userMethods = require("./users");
 
 function sProvided(param, paramName) {
-    if (!param || typeof param !== 'string') {
-        throw `Invalid post ${paramName} since ${paramName} is not a string`
-    }
+  if (!param || typeof param !== "string") {
+    throw `Invalid post ${paramName} since ${paramName} is not a string`;
+  }
 }
 function aProvided(param, paramName) {
-    if (!Array.isArray(param)) {
-        throw `Invalid post ${paramName} since ${paramName} is not an array`
-    }
+  if (!Array.isArray(param)) {
+    throw `Invalid post ${paramName} since ${paramName} is not an array`;
+  }
 }
 module.exports = {
     async createPost(movie, user, title,description, tags, images) {
@@ -123,4 +123,6 @@ module.exports = {
         post.postReplies += [parsedCommentId]
         return await this.editPost(parsedPostId, post);
     }
-}
+    return `${title} has been successfully removed`;
+  },
+};

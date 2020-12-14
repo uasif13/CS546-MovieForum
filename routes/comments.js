@@ -15,7 +15,7 @@ router.post("/", async (req, res) => {
       req.params.id,
       req.user
     );
-    res.status(200).redirect("/posts/");
+    res.status(200).redirect("/");
   } catch (e) {}
 });
 

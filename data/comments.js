@@ -8,12 +8,12 @@ module.exports = {
 
   async createComment(body, postId, userId) {
     try {
-      await userMethods.getUserByID(userId);
+      await userMethods.getUserByID(ObjectID(userId));
     } catch (e) {
       throw e;
     }
     try {
-      await postMethods.getPost(postId);
+      await postMethods.getPost(ObjectID(postId));
     } catch (e) {
       throw e;
     }

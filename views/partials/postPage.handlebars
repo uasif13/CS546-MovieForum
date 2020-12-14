@@ -1,0 +1,23 @@
+<div>
+    <h1></h1>
+    <div class="post">
+        <h2>{{postList.title}}</h2>
+        <p class="postBody">{{postList.description}}</p>
+        <p>{{postList.postLikes}}</p>
+        <p>{{postList.postDislikes}}</p>
+    </div>
+    <div>
+        {{#each allComments}}
+        <div class="comments">
+            <h6>{{comment.userName}}</h6>
+            <p>{{comment.body}}</p>
+        </div>
+        {{/each}}
+    </div>
+
+    <form action="/comments" method="POST" class="createComment">
+        <label id="titleLabel">
+            <input type="text" title="body">
+        </label>
+    </form>
+</div>

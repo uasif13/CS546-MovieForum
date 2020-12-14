@@ -14,6 +14,7 @@ router.post("/", async (req, res) => {});
 // get all posts
 router.get("/home");
 
+// get post by id
 router.get("/:id", async (req, res) => {
   try {
     let postList = await postsData.getPost(req.params.id);

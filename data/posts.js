@@ -71,6 +71,7 @@ module.exports = {
         return postsforMovie;
     },
     // The only things that can be edited about a post after creation are title, description, tags, and images
+    // Also can edit repliesArray
     // Input is post id and an object of the updated params
     async editPost(postId, updatedParams) {
         const parsedId = ObjectID(postId);
@@ -92,6 +93,10 @@ module.exports = {
             aProvided(updatedParams.tags, "tags")
             post.postTags = updatedParams.tags;
         }
+        if (updatedParams.postReplies) {
+            aProvided(updatedParams.postReplies, "comments");
+            post.postReplies = updatedParams.postReplies
+        }
         const updatedInfo = await postCollection.updateOne(
             {_id:parsedId},
             {$set: post},
@@ -111,5 +116,11 @@ module.exports = {
         }
         return `${title} has been successfully removed`
 
+    }, async addComment(postId, commentId) {
+        const parsedPostId = ObjectID(postId);
+        const parsedCommentId = ObjectID(commentId);
+        const post = await this.getPost(postId)
+        post.postReplies += [parsedCommentId]
+        return await this.editPost(parsedPostId, post);
     }
 }

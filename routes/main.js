@@ -1,10 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const data = require("../data");
+const postsData = data.posts;
+const moviesData = data.movies;
 const bcrypt = require("bcrypt");
 const userData = data.users;
 const mongoCollections = require("../config/mongoCollections");
 const users = mongoCollections.users;
+const posts = mongoCollections.posts;
+
 function ciEquals(a, b) {
   return typeof a === "string" && typeof b === "string"
     ? a.localeCompare(b, undefined, { sensitivity: "accent" }) === 0
@@ -31,7 +35,9 @@ router.get("/login", async (req, res) => {
   res.render("partials/login", { title: "login!" });
 });
 router.get("/trending", async (req, res) => {
-  res.render("partials/trending", { title: "trending!" });
+  const postsList = await postsData.getAllPosts();
+  postsList.sort((a, b) => (a.postLikes > b.postLikes ? 1 : -1));
+  res.render("partials/trending", { title: "trending!", posts: postsList });
 });
 router.post("/login", async (req, res) => {
   let found = false;

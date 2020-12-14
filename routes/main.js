@@ -48,7 +48,9 @@ router.post("/login", async (req, res) => {
       }
 
       if (!found) {
-        res.status(401).render("login", { error: true, title: "error" });
+        res
+          .status(401)
+          .render("partials/login", { error: true, title: "error" });
       } else {
         res.redirect("/trending");
       }

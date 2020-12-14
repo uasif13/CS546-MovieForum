@@ -123,6 +123,4 @@ module.exports = {
         post.postReplies += [parsedCommentId]
         return await this.editPost(parsedPostId, post);
     }
-    return `${title} has been successfully removed`;
-  },
 };

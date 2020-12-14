@@ -8,7 +8,7 @@ module.exports = {
 
   async createComment(body, postId, userId) {
     try {
-      await userMethods.getUserByID(ObjectID(userId));
+      let user = await userMethods.getUserByID(ObjectID(userId));
     } catch (e) {
       throw e;
     }
@@ -21,6 +21,7 @@ module.exports = {
     let newComment = {
       body: body,
       repliedBy: userId ,
+      userName : user.username,
       repliedToPost: postId,
     };
 

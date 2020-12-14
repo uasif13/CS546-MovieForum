@@ -11,7 +11,8 @@ router.get("/movieSelection", async (req, res) => {
 });
 router.post("/", async (req, res) => {});
 
-router.get("/");
+// get all posts
+router.get("/home");
 
 router.get("/:id", async (req, res) => {
   try {

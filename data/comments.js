@@ -63,7 +63,15 @@ module.exports = {
       // need to call a function to update post replies to empty array
   },
 
-  async editComment(commentId){
-      
+  async editComment(commentId, newBody){
+      const parsedId = ObjectID(commentID)
+      let newComment = {
+          body: newBody
+      }
+      const commentCollection = await comments()
+      const updatedComment = await commentCollection.updateOne({_id: parsedId}, {$set : newComment})
+      if(updatedComment.modifiedCount === 0){
+          throw "Could not update comment"
+      }
   }
 };

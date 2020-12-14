@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     let data = req.body;
     let addedMovie = {};
-    if (req.body.title || req.body.description || req.body.genres || req.body.image || req.body.budget) {
+    if (req.body.title && req.body.description && req.body.genres && req.body.image && req.body.budget) {
         addedMovie = await moviesData.createMovie(data.title, data.description, data.genres, data.budget, data.image)
     }
     res.render('partials/showDetails', {title: "Show Details", show: addedMovie});

@@ -14,22 +14,25 @@ function aProvided(param, paramName) {
     throw `Invalid post ${paramName} since ${paramName} is not an array`;
   }
 }
+function errorHandlingCreatePost(movieId, userId, title, description, tags, images){
+    try {
+        await movieMethods.getMovie(ObjectID(movieId));
+    } catch (e) {
+        throw e;
+    }
+    try {
+        await userMethods.getUserByID(ObjectID(userId));
+    } catch (e) {
+        throw e;
+    }
+    sProvided(title, "title")
+    sProvided(description, "description")
+    aProvided(tags, "Tags")
+    aProvided(images, "images")
+}
 module.exports = {
-    async createPost(movie, user, title,description, tags, images) {
-        try {
-            await movieMethods.getMovie(movie._id);
-        } catch (e) {
-            throw e;
-        }
-        try {
-            await userMethods.getUserByID(user._id);
-        } catch (e) {
-            throw e;
-        }
-        sProvided(title, "title")
-        sProvided(description, "description")
-        aProvided(tags, "Tags")
-        aProvided(images, "images")
+    async createPost(movieId, userId, title,description, tags, images) {
+        errorHandlingCreatePost(movieId, userId, title, description, tags, images)
         let post = {
             postTitle: title,
             postBody: description,

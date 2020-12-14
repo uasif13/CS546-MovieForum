@@ -9,6 +9,15 @@ function checkString(str) {
     throw "Comment is empty";
   }
 }
+
+function removeArrayElement(arr, commentID) {
+  var index = arr.indexOf(commentID);
+  if (index > -1) {
+    arr.splice(index, 1);
+  }
+  return arr;
+}
+
 module.exports = {
   async createComment(body, postId, userId) {
     try {
@@ -55,25 +64,30 @@ module.exports = {
     return commentList;
   },
 
-  async deleteComment(commentID) {
+  async deleteComment(postID, commentID) {
     const parsedId = ObjectID(commentID);
     const commentCollection = await comments();
     const deletedInfo = await commentCollection.removeOne({ _id: parsedId });
     if (deletedInfo === 0) {
       throw "Comment could not be removed";
     }
-    // need to call fucntion to update post replies to empty array
+    let parentPost = await postMethods.getPost(postID);
+    let repliesList = parentPost.postReplies;
+    await postMethods.editPost(postID, {
+      postReplies: removeArrayElement(repliesList, commentID),
+    });
     return "Comment deleted";
   },
 
-  async deleteAllCommentsOfPost(postId) {
-    let post = await postMethods.getPost(postId);
+  async deleteAllCommentsOfPost(postID) {
+    let post = await postMethods.getPost(postID);
     let commentsList = post.postReplies;
 
     commentsList.forEach((id) => {
       deleteComment(id);
     });
-    // need to call a function to update post replies to empty array
+    let newPost = { postReplies: [] };
+    await postMethods.editPost(postID, newPost);
   },
 
   async editComment(commentId, newBody) {

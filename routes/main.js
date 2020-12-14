@@ -54,7 +54,7 @@ router.post("/login", async (req, res) => {
       }
     }
   } else {
-    res.status(401).render("login", { error: true, title: "error" });
+    res.status(401).render("partials/login", { error: true, title: "error" });
   }
 });
 router.post("/signup", async (req, res) => {

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const data = require("../data/index");
-const movies = data.movies;
+const moviesData = data.movies;
 const postsData = data.posts;
 const commentsData = data.comments;
 

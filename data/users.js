@@ -1,5 +1,5 @@
 const data = require("../data");
-const { ObjectID } = require("mongodb");
+const ObjectID = require("mongodb").ObjectId;
 const bcrypt = require("bcrypt");
 const mongoCollections = require("../config/mongoCollections");
 const users = mongoCollections.users;

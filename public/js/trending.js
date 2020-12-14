@@ -85,7 +85,6 @@ $(document).ready(function () {
             currentId +
             "/recommendations",
         }).then(function (movies) {
-          console.log(movies);
           $.each(movies.results, function (i, data) {
             counter++;
             $("#recommendations").append(
@@ -108,7 +107,7 @@ $(document).ready(function () {
     var list = document.createElement("ul");
     for (var i = 0; i < array.length; i++) {
       var item = document.createElement("li");
-      item.appendChild(document.createTextNode(array[i]));
+      item.appendChild(document.createTextNode(array[i].name));
       list.appendChild(item);
     }
     return list;

@@ -31,7 +31,7 @@ async function errorHandlingCreatePost(movieId, userId, title, description, tags
     sProvided(image, "image")
 }
 module.exports = {
-    async createPost(movieId, userId, title,description, tags, image = './public/assets/no_image.jpg') {
+    async createPost(movieId, userId, title,description, tags, image = 'no_image.jpg') {
         errorHandlingCreatePost(movieId, userId, title, description, tags, image)
         let post = {
             postTitle: title,
@@ -42,7 +42,7 @@ module.exports = {
             postDislikes: 0,
             postuserId: userId,
             postTags: tags,
-            postImage: image
+            postImage: `../../public/assets/${image}`
         }
         const postCollection= await posts();
         const insertInfo = await postCollection.insertOne(post);

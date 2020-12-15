@@ -7,28 +7,29 @@
         <p>{{post.postLikes}}</p>
         <p>{{post.postDislikes}}</p>
         <div><img alt={{post.postTitle}} src={{post.postImage}}></div>
-        <div </div>
-            <h3>Description of Movie of Post</h3>
-            <div class="movies">
-                <h5>{{movieOfPost.title}}</h5>
-                <div><img src={{movieOfPost.image}} alt={{movieOfPost.title}}></div>
-                <div>
-                    <p>{{movieOfPost.description}}</p>
-                </div>
-            </div>
+    </div>
+    <div>
+        <h3>Description of Movie of Post</h3>
+        <div class="movies">
+            <h5>{{movie.title}}</h5>
+            <div><img src={{movie.image}} alt={{movie.title}}></div>
             <div>
-                {{#each allComments}}
-                <div class="comments">
-                    <h6>{{comment.userName}}</h6>
-                    <p>{{comment.body}}</p>
-                </div>
-                {{/each}}
+                <p>{{movie.description}}</p>
             </div>
-
-            <form action="/comments" method="POST" class="createComment">
-                <label id="titleLabel">
-                    <input type="text" title="body">
-                </label>
-                <button type="submit">Add Comment</button>
-            </form>
         </div>
+        <div>
+            {{#each allComments}}
+            <div class="comments">
+                <h6>{{comment.userName}}</h6>
+                <p>{{comment.body}}</p>
+            </div>
+            {{/each}}
+        </div>
+
+        <form action="/comments" method="POST" class="createComment">
+            <label id="titleLabel">
+                <input type="text" title="body">
+            </label>
+            <button type="submit">Add Comment</button>
+        </form>
+    </div>

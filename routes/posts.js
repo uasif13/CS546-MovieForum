@@ -43,8 +43,7 @@ router.get("/createPostPage", async (req, res) => {
 router.get("/:id", async (req, res) => {
   const post = await postsData.getPost(req.params.id);
   const movie = await moviesData.getMovie(post.postMovieId);
-  res.render("partials/postDetail", {
-    title: post.postTitle,
+  res.render("partials/postPage", {
     post: post,
     movie: movie,
   });
@@ -93,7 +92,7 @@ router.post("/", async (req, res) => {
   errorHandlePostCreation(data, req.session.user._id)
   let addedPost = await postsData.createPost(data.movie, req.session.user._id, data.title, data.description, data.tags, data.image);
   let movieOfPost = await moviesData.getMovie(addedPost.postMovieId)
-  res.render("partials/postPage", {title: addedPost.title, post: addedPost, movieOfPost: movieOfPost, allComments: []})
+  res.render("partials/postPage", {title: addedPost.title, post: addedPost, movie: movieOfPost, allComments: []})
 });
 
 module.exports = router;

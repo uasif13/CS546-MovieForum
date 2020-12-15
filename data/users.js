@@ -1,4 +1,3 @@
-const data = require("../data");
 const ObjectID = require("mongodb").ObjectId;
 const bcrypt = require("bcrypt");
 const mongoCollections = require("../config/mongoCollections");

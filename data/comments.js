@@ -1,8 +1,8 @@
 const { ObjectID } = require("mongodb");
 const mongoCollections = require("../config/mongoCollections");
 const comments = mongoCollections.comments;
-const postMethods = mongoCollections.posts;
-const userMethods = mongoCollections.users;
+const postMethods = require("./posts");
+const userMethods = require("./users");
 
 function checkString(str) {
   if (str === null || str.match(/^\s*$/) !== null) {
@@ -20,13 +20,14 @@ function removeArrayElement(arr, commentID) {
 
 module.exports = {
   async createComment(body, postId, userId) {
+    let user = {}
     try {
-      let user = await userMethods.getUserByID(ObjectID(userId));
+      user = await userMethods.getUserByID(userId);
     } catch (e) {
       throw e;
     }
     try {
-      await postMethods.getPost(ObjectID(postId));
+      await postMethods.getPost(postId);
     } catch (e) {
       throw e;
     }
@@ -50,7 +51,7 @@ module.exports = {
       throw "Comment not inserted";
     }
     const commentID = insertInfo.insertedId;
-    await postMethods.addComment(post._id, commentID);
+    await postMethods.addComment(postId, commentID);
   },
 
   async getAllComments(postId) {
@@ -91,7 +92,7 @@ module.exports = {
   },
 
   async editComment(commentId, newBody) {
-    const parsedId = ObjectID(commentID);
+    const parsedId = ObjectID(commentId);
     let newComment = {
       body: newBody,
     };

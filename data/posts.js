@@ -14,7 +14,7 @@ function aProvided(param, paramName) {
     throw `Invalid post ${paramName} since ${paramName} is not an array`;
   }
 }
-function errorHandlingCreatePost(movieId, userId, title, description, tags, images){
+async function errorHandlingCreatePost(movieId, userId, title, description, tags, image){
     try {
         await movieMethods.getMovie(ObjectID(movieId));
     } catch (e) {
@@ -28,21 +28,21 @@ function errorHandlingCreatePost(movieId, userId, title, description, tags, imag
     sProvided(title, "title")
     sProvided(description, "description")
     aProvided(tags, "Tags")
-    aProvided(images, "images")
+    sProvided(image, "image")
 }
 module.exports = {
-    async createPost(movieId, userId, title,description, tags, images) {
-        errorHandlingCreatePost(movieId, userId, title, description, tags, images)
+    async createPost(movieId, userId, title,description, tags, image = './public/assets/no_image.jpg') {
+        errorHandlingCreatePost(movieId, userId, title, description, tags, image)
         let post = {
             postTitle: title,
             postBody: description,
-            postMovieId: movie._id,
+            postMovieId: movieId,
             postReplies: [],
             postLikes: 0,
             postDislikes: 0,
-            postuserId: user._id,
+            postuserId: userId,
             postTags: tags,
-            postImages: images
+            postImage: image
         }
         const postCollection= await posts();
         const insertInfo = await postCollection.insertOne(post);
@@ -58,7 +58,7 @@ module.exports = {
         const postCollection = await posts();
         const post = await postCollection.findOne({_id: parsedID});
         if (post == null) {
-            throw 'Could not find a movie with the given id'
+            throw 'Could not find a post with the given id'
         }
         return post;
     },
@@ -88,9 +88,9 @@ module.exports = {
             sProvided(updatedParams.description, "description")
             post.postBody = updatedParams.postBody;
         }
-        if (updatedParams.images) {
-            aProvided(updatedParams.images, "Images")
-            post.postImages = updatedParams.images;
+        if (updatedParams.image) {
+            sProvided(updatedParams.image, "Images")
+            post.postImages = updatedParams.image;
         }
         if (updatedParams.tags) {
             aProvided(updatedParams.tags, "tags")
@@ -123,7 +123,7 @@ module.exports = {
         const parsedPostId = ObjectID(postId);
         const parsedCommentId = ObjectID(commentId);
         const post = await this.getPost(postId)
-        post.postReplies += [parsedCommentId]
+        post.postReplies.push(parsedCommentId)
         return await this.editPost(parsedPostId, post);
     }
 };

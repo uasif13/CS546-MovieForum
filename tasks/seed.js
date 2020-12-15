@@ -108,7 +108,6 @@ async function main() {
     "description",
     [],
   );
-  console.log("comment addition")
   const c1 = await commentsData.createComment(
     "I am so scared of Joker's face",
     p1._id,

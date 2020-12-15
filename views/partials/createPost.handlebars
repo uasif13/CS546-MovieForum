@@ -1,17 +1,60 @@
+<div class="navBar">
+    <a href="/trending"><img alt="FilmCult" src="../../public/assets/titleIcon.svg" class="logo"></a>
+    <form action="/search" method="POST" class="searchForm">
+        <input type="text" value="Look up movie,post,user..." class="searchFormInput" />
+        <button type="submit"><img alt="search" src="../../public/assets/searchIcon.svg"></button>
+    </form>
+    <a href="/userProfile" id="userProfile">Go to Your User Page</a>
+</div>
 <h1>Create a new Post</h1>
-<form action="/posts" method="POST" class="createPost">
-    <label id="titleLabel">
-        <input type="text" placeholder="Title">
-    </label>
-    <label id="descriptionLabel">
-        <input type="text" placeholder="Description">
-    </label>
-    <label id="movieLabel">
-        <input list="movieList" name="movie">
-        <datalist id="movieList">
-            {{#each movie}}
-            <option value={{this}}>
+<form autocomplete="off" action="/posts" method="POST" class="postForm">
+    <div class="formParam" id="postTitle">
+        <label id="postTitleLabel">
+            Title
+            <input type="text" name="title" id="postTitleInput" placeholder="Title" />
+        </label>
+    </div>
+    <div class="formParam" id="postDescription">
+        <label id="postDescriptionLabel">
+            Description
+            <input type="text" name="description" id="postDescriptionInput" placeholder="Description" />
+        </label>
+    </div>
+    <div class="autocomplete">
+        <label id="postMovieLabel">
+            Movie
+            <select name="movie" id="movieSelect">
+                {{#each movies}}
+                <option value="{{this._id}}">{{this.title}}</option>
                 {{/each}}
-        </datalist>
-    </label>
+            </select>
+            {{!-- <input type="text" name="movie" id="postMovieInput" placeholder="Movie" /> --}}
+        </label>
+    </div>
+    <div>
+        <p>Movie not found? Click the link below to create a movie</p>
+        <a href="/movies/create" id="createMovieLink">Create movie</a>
+    </div>
+    <div class="formParam" id="postBoxes">
+        <label><input type="checkbox" name="tags[]" value="News" />News</label>
+        <label><input type="checkbox" name="tags[]" value="Discussion" />Discussion</label>
+        <label><input type="checkbox" name="tags[]" value="Review" />Review</label>
+        <label><input type="checkbox" name="tags[]" value="Trailers" />Trailers</label>
+        <label><input type="checkbox" name="tags[]" value="Question" />Question</label>
+        <label><input type="checkbox" name="tags[]" value="Recommendation" />Recommendation</label>
+        <label><input type="checkbox" name="tags[]" value="Article" />Article</label>
+        <label><input type="checkbox" name="tags[]" value="Spoilers" />Spoilers</label>
+    </div>
+    <div class="formParam" id="postImage">
+        <label id="postImageLabel">
+            Image URL
+            <input type="file" name="image" id="postImageInput" />
+        </label>
+    </div>
+    <div class="formSubmission" id="postSubmit">
+        <button class="formButtons" id="postButton" type="submit">Create Post</button>
+    </div>
 </form>
+<footer class="footer">
+    <p>FilmCult</p>
+</footer>

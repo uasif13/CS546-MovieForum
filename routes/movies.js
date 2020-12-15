@@ -2,13 +2,20 @@ const express = require("express")
 const router = express.Router();
 const data = require("../data/index");
 const moviesData = data.movies;
-const axios = require('axios')
+const axios = require('axios');
+const movies = require("../data/movies");
 const API_KEY = '2c5709ff90e8aeb0f12febf13b682fa8' 
 
-router.get('/', async (req, res) => {
+// GEt the createMovie page
+router.get('/create', async (req, res) => {
     res.render('partials/createMovie', {title: "Create a movie"} );
 })
 
+// GEt all movies
+router.get('/', async (req, res) => {
+    let allMovies = await moviesData.getAllMovies();
+    res.json(allMovies);
+})
 // Movie is created from user input
 router.post('/', async (req, res) => {
     let data = req.body;

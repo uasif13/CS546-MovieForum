@@ -2,16 +2,25 @@ const express = require("express");
 const { ObjectID } = require("mongodb");
 const router = express.Router();
 const data = require("../data/index");
-const movies = data.movies;
+const moviesData = data.movies;
 const postsData = data.posts;
 const commentsData = data.comments;
 const userData = data.users;
 const spaceRegex = /^\s*$/;
 
 // This should render a page to create a post
-router.get("/movieSelection", async (req, res) => {
-  res.render("partials/createPost", { title: "Create a post" });
+router.get("/createPostPage", async (req, res) => {
+  const allMovies = await moviesData.getAllMovies();
+  allMovies.forEach(movie => {
+    movie._id = movie._id.toString()
+  });
+  res.render("partials/createPost", { title: "Create a post" , movies: allMovies});
 });
+
+// Gets all posts
+// router.get("/", async (req, res) => {
+
+// })
 
 // get all posts
 
@@ -41,14 +50,14 @@ router.get("/:id", async (req, res) => {
   });
 });
 
-function errorHandlePostCreation(data) {
+async function errorHandlePostCreation(data, userId) {
   // A post must have all the components below
-  if (!data.movieId || !data.userId || !data.title || !data.description || !data.tags || !data.images) {
+  if (!data.movie || !userId || !data.title || !data.description || !data.tags || !data.image) {
     throw "Missing Component for Post";
   }
   // A post must be about a movie in our movieCollection
   try {
-    await postsData.getPost(ObjectID(movieId))
+    await postsData.getPost(ObjectID(data.movie))
   } catch (e) {
     throw "Could not find the movie in the database"
   }
@@ -71,15 +80,20 @@ function errorHandlePostCreation(data) {
     throw "Tags must be an array"
   }
   // images must be an array
-  if (!Array.isArray(data.images)) {
+  if (!Array.isArray(data.image)) {
     throw "images must be an array"
   }
 }
 // Post is created from user input
 router.post("/", async (req, res) => {
+  if (!req.session.user) {
+    throw 'Please sign in as a user'
+  }
   const data = req.body;
-  errorHandlePostCreation(data)
-  let addedmovie = await postsData.createPost(data.movieId, data.userId, data.title, data.description, data.tags, data.images);
+  errorHandlePostCreation(data, req.session.user._id)
+  let addedPost = await postsData.createPost(data.movie, req.session.user._id, data.title, data.description, data.tags, data.image);
+  let movieOfPost = await moviesData.getMovie(addedPost.postMovieId)
+  res.render("partials/postPage", {title: addedPost.title, post: addedPost, movieOfPost: movieOfPost, allComments: []})
 });
 
 module.exports = router;

@@ -50,6 +50,7 @@ router.post("/login", async (req, res) => {
           bcrypt.compareSync(req.body.password, users[i].password)
         ) {
           found = true;
+          req.session.user = users[i]
         }
       }
 

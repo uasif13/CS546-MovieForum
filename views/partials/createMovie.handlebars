@@ -37,40 +37,57 @@
         </div>
     </div>
 </nav>
-<div>
-    <p> Create a movie</p>
+<div class="container justify-content-center">
+    <div class="row">
+        <h1>Create a movie</h1>
+    </div>
     <form action="/movies" method="POST" class="movieForm">
-        <label id="labelMovieTitle">
-            Title
-            <input type="text" name="title" id="movieTitleInput" />
-        </label>
-        <label id="labelMovieDescription">
-            Description
-            <input type="text" name="description" id="movieDescriptionInput" />
-        </label>
-        <label id="labelMovieBudget">
-            Budget
-            <input type="number" name="budget" id="movieBudgetInput" />
-        </label>
-        <label id="labelMovieImage">
-            Image URL
-            <input type="file" name="image" id="movieImageInput" />
-        </label>
-        <div class="checkBoxes" id="movieBoxes">
-            <label><input type="checkbox" name="genres[]" value="adventure" />Adventure</label>
-            <label><input type="checkbox" name="genres[]" value="action" />Action</label>
-            <label><input type="checkbox" name="genres[]" value="drama" />Drama</label>
-            <label><input type="checkbox" name="genres[]" value="comedy" />Comedy</label>
-            <label><input type="checkbox" name="genres[]" value="thriller" />Thriller</label>
-            <label><input type="checkbox" name="genres[]" value="horror" />Horror</label>
-            <label><input type="checkbox" name="genres[]" value="romcom" />Romantic Comedy</label>
-            <label><input type="checkbox" name="genres[]" value="musical" />Musical</label>
-            <label><input type="checkbox" name="genres[]" value="documentary" />Documentary</label>
-            <label><input type="checkbox" name="genres[]" value="romance" />Romance</label>
-            <label><input type="checkbox" name="genres[]" value="animation" />Animation</label>
-            <label><input type="checkbox" name="genres[]" value="scifi" />Science Fiction</label>
+        <div class="mb-3">
+            <label id="labelMovieTitle" class="form-label">
+                Title of Movie
+                <input class="form-control" type="text" name="title" id="movieTitleInput" placeholder="Movie Title" />
+            </label>
         </div>
-        <button class="formButtons" id="movieButton" type="submit">Create Movie</button>
+        <div class="mb-3">
+            <label id="labelMovieDescription" class="form-label">
+                Description of Movie
+                <textarea class="form-control" type="text" name="description" id="movieDescriptionInput"
+                    rows="3"></textarea>
+            </label>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" id="labelMovieBudget">
+                Budget
+                <input class="form-control" type="number" name="budget" id="movieBudgetInput" />
+            </label>
+        </div>
+        <div class="mb-3">
+            <label id="labelMovieImage" class="form-label">
+                Choose image from assets folder
+                <input class="form-control" type="file" name="image" id="movieImageInput" />
+            </label>
+        </div>
+        <div class="mb-3">
+            <label id="labelMovieGenres" class="form-label">
+                Select Movie Genres
+                <select class="form-select" multiple aria-label="genres">
+                    <option selected>Choose the genres of the movie</option>
+                    <option value="Adventure">Adventure</option>
+                    <option value="Action">Action</option>
+                    <option value="Drama">Drama</option>
+                    <option value="Comedy">Comedy</option>
+                    <option value="Thriller">Thriller</option>
+                    <option value="Horror">Horror</option>
+                    <option value="Romantic Comedy">Romantic Comedy</option>
+                    <option value="Musical">Musical</option>
+                    <option value="Documentary">Documentary</option>
+                    <option value="Romance">Romance</option>
+                    <option value="Animation">Animation</option>
+                    <option value="Science Fiction">Science Fiction</option>
+                </select>
+            </label>
+        </div>
+        <button type="submit" class="btn btn-primary">Create Movie</button>
     </form>
 </div>
 <footer class="bg-light" id="footer">

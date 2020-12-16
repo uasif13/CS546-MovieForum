@@ -8,6 +8,8 @@ const exphbs = require('express-handlebars')
 app.use("/public", static)
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
+app.engine('handlebars', exphbs({defaultLayout: 'main'}))
+app.set('view engine', 'handlebars')
 
 app.use(
     session({
@@ -21,9 +23,6 @@ app.use(
     })
 )
 // Insert middleware functions
-app.use('/public', static);
-app.engine('handlebars', exphbs({defaultLayout: 'main'}))
-app.set('view engine', 'handlebars')
 configRoutes(app)
 
 app.listen(3000, () => {

@@ -20,7 +20,7 @@ function removeArrayElement(arr, commentID) {
 
 module.exports = {
   async createComment(body, postId, userId) {
-    let user = {}
+    let user = {};
     try {
       user = await userMethods.getUserByID(userId);
     } catch (e) {
@@ -55,11 +55,11 @@ module.exports = {
   },
 
   async getAllComments(postId) {
-    const parsedId = ObjectID(postId);
+    //const parsedId = ObjectID(postId);
     const commentCollection = await comments();
 
     let commentList = await commentCollection
-      .find({ repliedToPost: parsedId })
+      .find({ repliedToPost: postId })
       .toArray();
 
     return commentList;

@@ -6,17 +6,18 @@ const postsData = data.posts;
 const commentsData = data.comments;
 
 router.post("/", async (req, res) => {
-  let commentData = req.body;
-  try {
-  } catch {}
+  console.log(req.body);
+  console.log(req.session.user._id);
   try {
     const newComment = await commentsData.createComment(
-      commentsData.body,
-      req.params.id,
-      req.user
+      req.body.commentBody,
+      req.body.postID,
+      req.session.user._id
     );
-    res.status(200).redirect("/");
-  } catch (e) {}
+    res.status(200).redirect(`/posts/${req.body.postID}`);
+  } catch (e) {
+    throw e;
+  }
 });
 
 module.exports = router;

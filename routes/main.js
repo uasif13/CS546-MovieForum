@@ -105,4 +105,15 @@ router.post("/signup", async (req, res) => {
   }
 });
 
+// Get user profile page
+router.get("/user", async (req, res) => {
+  // Add error handling
+  let id = req.session._id;
+  const user = await userData.getUserByID(id);
+  // Need to get posts of users
+  // Need to get moviesRated of users
+  // Need to get REcommendations of users
+  res.render("partials/userProfile.handlebars", {title: `${user.username}'s Profile`, user: user})
+})
+
 module.exports = router;

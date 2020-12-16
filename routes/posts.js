@@ -24,11 +24,13 @@ router.get("/createPostPage", async (req, res) => {
 router.get("/:id", async (req, res) => {
   const post = await postsData.getPost(req.params.id);
   const movie = await moviesData.getMovie(post.postMovieId);
-  const comments = await commentsData.getAllComments(req.params.id);
+  const allComments = await commentsData.getAllComments(req.params.id);
+  console.log(allComments);
   res.render("partials/postPage", {
     post: post,
     movie: movie,
-    comments: comments,
+    comments: allComments,
+
   });
 });
 

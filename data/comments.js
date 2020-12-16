@@ -54,12 +54,12 @@ module.exports = {
     await postMethods.addComment(postId, commentID);
   },
 
-  async getAllComments(postID) {
+  async getAllComments(postId) {
     //const parsedId = ObjectID(postId);
     const commentCollection = await comments();
 
     let commentList = await commentCollection
-      .find({ repliedToPost: postID })
+      .find({ repliedToPost: postId })
       .toArray();
 
     return commentList;

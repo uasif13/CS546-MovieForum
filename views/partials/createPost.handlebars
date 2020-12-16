@@ -24,6 +24,9 @@
         <label id="postMovieLabel">
             Movie
             <select name="movie" id="movieSelect">
+                <option value="none" selected disabled hidden>
+                    Select a movie
+                </option>
                 {{#each movies}}
                 <option value="{{this._id}}">{{this.title}}</option>
                 {{/each}}

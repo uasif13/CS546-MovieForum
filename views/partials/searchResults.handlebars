@@ -1,0 +1,49 @@
+<div class="navBar">
+    <a href="/trending"><img alt="FilmCult" src="../../public/assets/titleIcon.svg" class="logo"></a>
+    <a href="/search" id="searchLink">Search for a movie, recommendation, or post</a>
+    <a href="/userProfile" id="userProfile">Go to Your User Page</a>
+    <a href="/posts/createPostPage" id="postLink">Create post</a>
+    <a href="/movies/create" id="createMovieLink">Create movie</a>
+</div>
+<h2>Search Results</h2>
+<div>
+    <p>Here are all the results with your search keyword {{keyword}} and data type {{type}}</p>
+</div>
+<div id="searchResults">
+    {{#if isPost}}
+    {{#each results}}
+    <div class="postSearchResults">
+        <ul>
+            <li>{{this.postTitle}}</li>
+            <li>{{this.postBody}}</li>
+        </ul>
+    </div>
+    {{/each}}
+    {{/if}}
+    {{#if isMovie}}
+    {{#each results}}
+    <div class="movieSearchResults">
+        <ul>
+            <li>{{this.title}}</li>
+            <li>{{this.description}}</li>
+        </ul>
+    </div>
+    {{/each}}
+    {{/if}}
+    {{#if isUser}}
+    {{#each results}}
+    <div class="userSearchResults">
+        <ul>
+            <li>{{this.firstName}}</li>
+            <li>{{this.lastName}}</li>
+            <li>{{this.email}}</li>
+            <li>{{this.username}}</li>
+        </ul>
+    </div>
+    {{/each}}
+    {{/if}}
+</div>
+<a href="/search" id="searchLink">Make another search</a>
+<footer class="footer">
+    <p>FilmCult</p>
+</footer>

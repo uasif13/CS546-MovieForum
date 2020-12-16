@@ -1,0 +1,33 @@
+<div class="navBar">
+    <a href="/trending"><img alt="FilmCult" src="../../public/assets/titleIcon.svg" class="logo"></a>
+    <a href="/search" id="searchLink">Search for a movie, recommendation, or post</a>
+    <a href="/userProfile" id="userProfile">Go to Your User Page</a>
+    <a href="/posts/createPostPage" id="postLink">Create post</a>
+    <a href="/movies/create" id="createMovieLink">Create movie</a>
+</div>
+<h2>Search through Posts, Movies, and Users</h2>
+<form action="/search" method="POST" class="searchForm">
+    <div id="searchType">
+        <select name="searchItem" id="searchItemSelect">
+            <option value="none" selected disabled hidden>
+                Select a Search Item
+            </option>
+            <option value="post">Posts</option>
+            <option value="movie">Movies</option>
+            <option value="user">Users</option>
+        </select>
+    </div>
+    <div id="searchQuery">
+        <label id="searchQueryLabel">
+            Keyword
+            <input type="text" name="searchQuery" id="searchQueryInput" placeholder="Keyword" />
+        </label>
+    </div>
+    <div class="formSubmission" id="searchSubmit">
+        <button class="formButtons" id="searchButton" type="submit"><img alt="search"
+                src="../../public/assets/searchIcon.svg"></button>
+    </div>
+</form>
+<footer class="footer">
+    <p>FilmCult</p>
+</footer>

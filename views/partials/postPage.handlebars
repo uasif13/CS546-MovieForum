@@ -18,18 +18,20 @@
             </div>
         </div>
         <div>
-            {{#each allComments}}
+            {{#each comments}}
             <div class="comments">
-                <h6>{{comment.userName}}</h6>
-                <p>{{comment.body}}</p>
+                <h6>{{this.userName}}</h6>
+                <p>{{this.body}}</p>
+                <form action="/comments" method=""></form>
             </div>
             {{/each}}
         </div>
 
         <form action="/comments" method="POST" class="createComment">
             <label id="titleLabel">
-                <input type="text" title="body">
+                <input type="text" name="commentBody" title="body">
             </label>
+            <input type="hidden" name="postID" value={{post._id}} />
             <button type="submit">Add Comment</button>
         </form>
     </div>

@@ -75,13 +75,15 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="signUpModalTitleLabel">Sign Up</h5>
+                <h3 class="modal-title" id="signUpModalTitleLabel">Sign Up</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
             </div>
             <form id="signup-form" method="POST" action="/signup">
                 <div class="modal-body">
                     {{#if error}}
-                    <p>Invalid credentials</p>
+                    <div class="alert alert-warning" role="alert">
+                        Invalid Credentials
+                    </div>
                     {{/if}}
                     <div class="mb-3">
                         <label for="firstName" class="form-label">First Name: </label>
@@ -118,13 +120,15 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="loginModalTitleLabel">Log In</h5>
+                <h3 class="modal-title" id="loginModalTitleLabel">Log In</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
             </div>
             <form id="login-form" method="POST" action="/login">
                 <div class="modal-body">
                     {{#if error}}
-                    <p>Invalid Username or password</p>
+                    <div class="alert alert-warning" role="alert">
+                        Invalid Username or Password
+                    </div>
                     {{/if}}
                     <div class="mb-3">
                         <label for="username" class="form-label">Please Enter a Username: </label>

@@ -23,7 +23,7 @@ router.get("/", async (req, res) => {
   } else {
     // Load landing page
     res.render("partials/landing", {
-      title: "Join the conversation today at FilmCult",
+      title: "Join the conversation today at FilmCult", error: "This is a test"
     });
     return;
   }

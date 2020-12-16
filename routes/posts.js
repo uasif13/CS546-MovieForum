@@ -30,6 +30,7 @@ router.get("/:id", async (req, res) => {
     post: post,
     movie: movie,
     comments: allComments,
+
   });
 });
 

@@ -1,5 +1,9 @@
 /* Insert Css here */
 /* #postLink, */
+body {
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+   font-weight: 300;
+}
 #recTitle {
   display: none;
 }
@@ -17,11 +21,37 @@
   background-color: #A9A9A9;
 }
 
-.footer {
-  background-color: #A9A9A9;
+#footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
 }
 
-.logo {
-  width: 64px;
-  height: 48px;
+#logo {
+  width: 41px;
+  height: 32px;
+}
+
+#landingMessageCenter {
+  margin-top: 100px;
+  margin-bottom: 100px;
+  text-align: center;
+}
+
+.nav-item.dropdown {
+  list-style-type: none;
+}
+
+#footerCenter {
+  text-align: center;
+}
+
+#footer {
+  width: 100%;
+  position:absolute;
+  bottom: 0;
+}
+
+#footerLink {
+  color: #A9A9A9;
 }

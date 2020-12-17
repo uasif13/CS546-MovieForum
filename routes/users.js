@@ -15,6 +15,7 @@ router.get('/update', (req,res,next) => {
         res.render('partials/account', {user:user});
     }
      catch(e){
+         res.send(500).send(e);
      }   
 });
 
@@ -48,21 +49,13 @@ router.post("/", async (req, res) => {
       const data = req.body;
       //console.log(data)
       errorHandlePostCreation(data, req.session.user._id);
-      let updateuser = await postsData.createPost(
-        xss(data.movie),
+      let updateuser = await userMethods.updateUser(
+        xss(data.firstname),
         xss(req.session.user._id),
-        xss(data.title),
-        xss(data.description),
-        xss(data.tags),
-        xss(data.image)
+        xss(data.lastname),
+        xss(data.email),
+        xss(data.password),
       );
-      let movieOfPost = await moviesData.getMovie(addedPost.postMovieId);
-      res.render("partials/postPage", {
-        title: addedPost.title,
-        post: addedPost,
-        movie: movieOfPost,
-        allComments: [],
-      });
     } catch (e) {
       res.status(500).send(e);
     }

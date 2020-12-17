@@ -37,38 +37,39 @@
         </div>
     </div>
 </nav>
-<h1>Search through Posts, Movies, and Users</h1>
-<form action="/search" method="POST" class="searchForm">
-    <div id="searchType" class="md-3">
-        <select name="searchItem" id="searchItemSelect">
-            <option value="none" selected disabled hidden>
-                Select a Search Item
-            </option>
-            <option value="post">Posts</option>
-            <option value="movie">Movies</option>
-            <option value="user">Users</option>
-        </select>
+<div class="container justify-content-center">
+    <div class="row">
+        <h1>Search</h1>
     </div>
-    <div id="searchQuery" class="md-3">
-        <label id="searchQueryLabel" class="form-label">
-            Keyword
-            <input type="text" name="searchQuery" id="searchQueryInput" placeholder="Keyword" />
-        </label>
-    </div>
-    <div class="formSubmission" id="searchSubmit">
-        <button class="formButtons" id="searchButton" type="submit"><img alt="search"
-                src="../../public/assets/searchIcon.svg"></button>
-    </div>
-</form>
-<footer id="footer">
-    <div class="container">
-        <div class="row">
-            <div id="footerCenter">
-                <div class="col">
-                    <a href="/trending" id="footerLink">Back to main page</a>
-                    <p>&copy; FilmCult</p>
+    <form action="/search" method="POST" class="searchForm">
+        <div id="searchType" class="md-3">
+            <select class="form-select" name="searchItem" id="searchItemSelect" aria-label="selectType">
+                <option selected disabled hidden>Choose a search type below</option>
+                <option value="movie">Movie</option>
+                <option value="post">Post</option>
+                <option value="user">User</option>
+            </select>
+        </div>
+        <div id="searchQuery" class="md-3">
+            <label id="searchQueryLabel" class="form-label">
+                Keyword
+                <input class="form-control" type="text" name="searchQuery" id="searchQueryInput"
+                    placeholder="Keyword" />
+            </label>
+        </div>
+        <button class="btn btn-primary" id="searchButton" type="submit">
+            Search
+        </button>
+    </form>
+    <footer id="footer">
+        <div class="container">
+            <div class="row">
+                <div id="footerCenter">
+                    <div class="col">
+                        <a href="/trending" id="footerLink">Back to main page</a>
+                        <p>&copy; FilmCult</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</footer>
+    </footer>

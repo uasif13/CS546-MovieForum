@@ -22,14 +22,14 @@
                     <a class="nav-link" href="/search">Search</a>
                 </li>
             </ul>
-            <div class="d-flex" href="/user">
+            <div class="d-flex">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navBarUserDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <img alt="User Profile" src="../../public/assets/userIcon.svg">
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navBarUserDropdown">
-                        <li><a class="dropdown-item" href="/users" id="userLink">User Profile</a></li>
+                        <li><a class="dropdown-item" href="/user" id="userLink">User Profile</a></li>
                         <li><a class="dropdown-item" href="/logout" id="logoutLink">Log Out</a></li>
                     </ul>
                 </li>
@@ -41,20 +41,23 @@
     <div class="row">
         <h1>Create a post</h1>
     </div>
-    <form action="/posts" method="POST" class="postForm">
+    <form autocomplete="off" action="/posts" method="POST" id="postForm">
         <div class="mb-3">
-            <label class="form-label" id="postMovieLabel">
-                Movie
-                <input class="form-control" list="movies" id="movieListChoice" placeholder="Type to search...">
-                <datalist id="movies">
-                    {{#each movies}}
-                    <option value="{{this._id}}">{{this.title}}</option>
-                    {{/each}}
-                </datalist>
-                <div>
-                    Can't find the movie that you are looking for?
-                </div>
-                <a href="/movies/create" id="movieLink">Create a Movie</a>
+            <div class="autocomplete">
+                <label class="form-label" id="postMovieLabel">
+                    Movie
+                    <select class="form-select" name="movie" id="movieSelect" aria-label="selectMovie">
+                        <option selected disabled hidden>Choose a movie below</option>
+                        {{#each movies}}
+                        <option value="{{this._id}}">{{this.title}}</option>
+                        {{/each}}
+                    </select>
+                </label>
+            </div>
+            <div>
+                Can't find the movie that you are looking for?
+            </div>
+            <a href="/movies/create" id="movieLink">Create a Movie</a>
             </label>
         </div>
         <div class="mb-3">
@@ -78,8 +81,8 @@
         </div>
         <div class="mb-3">
             <label id="labelMovieGenres" class="form-label">
-                Select Post Tags
-                <select class="form-select" multiple aria-label="tags">
+                Select Post Tags (Hold CTRL to select multiple tags)
+                <select class="form-select" multiple name="tags" aria-label="tags" id="postTagsInput">
                     <option selected>Choose tags for your posts</option>
                     <option value="News">News</option>
                     <option value="Discussion">Discussion</option>

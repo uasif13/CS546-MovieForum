@@ -3,6 +3,27 @@ var router = express.Router();
 const ObjectID = require('mongodb').ObjectID;
 const userMethods = require('../data/users');
 
+// Get user profile page
+// router.get("/", async (req, res) => {
+//   try {
+//     if (!req.session) {
+//         throw "There is no session"
+//     }
+//     if (!req.session.user) {
+//         throw "You must be logged in before you can make a search"
+//     }
+//     // Add error handling
+//     let id = req.session.user._id;
+//     const user = await userData.getUserByID(id);
+//     // Need to get posts of users
+//     // Need to get moviesRated of users
+//     // Need to get REcommendations of users
+//   res.render("partials/userProfile.handlebars", {title: `${user.username}'s Profile`, user: user})
+//   } catch(e) {
+//     res.redirect("partials/landing", {title: "Join the conversation at FilmCult today!"}) 
+//   }
+// })
+
 router.get('/update', (req,res,next) => {
     if(!req.params) {
         return next();

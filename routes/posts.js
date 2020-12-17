@@ -113,14 +113,16 @@ router.post("/", async (req, res) => {
       throw "No body was sent with POST request";
     }
     const data = req.body;
-    console.log(data);
     errorHandlePostCreation(data, req.session.user._id);
+            data.tags.forEach(tag => {
+                xss(tag)
+            });
     let addedPost = await postsData.createPost(
-      xss(data.movie),
+      xss(ObjectID(data.movie)),
       xss(req.session.user._id),
       xss(data.title),
       xss(data.description),
-      xss(data.tags),
+      data.tags,
       xss(data.image)
     );
     let movieOfPost = await moviesData.getMovie(addedPost.postMovieId);

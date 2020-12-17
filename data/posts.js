@@ -10,10 +10,12 @@ function sProvided(param, paramName) {
   }
 }
 function aProvided(param, paramName) {
+    console.log(Array.isArray(param))
   if (!Array.isArray(param)) {
     throw `Invalid post ${paramName} since ${paramName} is not an array`;
   }
 }
+
 async function errorHandlingCreatePost(
   movieId,
   userId,

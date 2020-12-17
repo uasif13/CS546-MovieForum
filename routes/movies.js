@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const data = require("../data/index");
 const moviesData = data.movies;
-const postsData = data.posts;
 const axios = require("axios");
 const movies = require("../data/movies");
 const API_KEY = "2c5709ff90e8aeb0f12febf13b682fa8";
@@ -31,14 +30,15 @@ router.get("/", async (req, res) => {
       throw "There is no session";
     }
     if (!req.session.user) {
-      throw "You must be logged in before you can make a search";
+
+      throw "You must be logged in before you can see a movie";
     }
     let allMovies = await moviesData.getAllMovies();
     res.json(allMovies);
   } catch (e) {
-    res.status(500).send(e);
-  }
-});
+    // res.status(500).send(e)
+    res.redirect("/");
+
 router.get("/:id", async (req, res) => {
   try {
     if (!req.session) {
@@ -57,6 +57,7 @@ router.get("/:id", async (req, res) => {
     });
   } catch (e) {
     res.status(500).send(e);
+
   }
 });
 // Movie is created from user input
@@ -72,7 +73,6 @@ router.post("/", async (req, res) => {
       throw "No body was sent with POST request";
     }
     let data = req.body;
-    console.log(data);
     let addedMovie = {};
     if (
       req.body.title &&
@@ -81,10 +81,13 @@ router.post("/", async (req, res) => {
       req.body.image &&
       req.body.budget
     ) {
+      data.genres.forEach((genre) => {
+        xss(genre);
+      });
       addedMovie = await moviesData.createMovie(
         xss(data.title),
         xss(data.description),
-        xss(data.genres),
+        data.genres,
         xss(data.budget),
         xss(data.image)
       );

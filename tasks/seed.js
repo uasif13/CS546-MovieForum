@@ -87,6 +87,14 @@ async function main() {
     ["Question", "Discussion"],
     "https://static01.nyt.com/images/2019/10/06/arts/06jokers-ranked-ledger/06jokers-ranked-ledger-videoSixteenByNineJumbo1600.jpg"
   );
+  const p11 = await postsData.createPost(
+    m4._id,
+    u2._id,
+    "The Joker paints his face as a disguise",
+    "Heath Ledgers joker is legendary",
+    ["Question", "Discussion"],
+    "https://static01.nyt.com/images/2019/10/06/arts/06jokers-ranked-ledger/06jokers-ranked-ledger-videoSixteenByNineJumbo1600.jpg"
+  );
   const p2 = await postsData.createPost(
     m5._id,
     u3._id,

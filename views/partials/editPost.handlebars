@@ -22,14 +22,14 @@
                     <a class="nav-link" href="/search">Search</a>
                 </li>
             </ul>
-            <div class="d-flex" href="/user">
+            <div class="d-flex">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navBarUserDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <img alt="User Profile" src="../../public/assets/userIcon.svg">
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navBarUserDropdown">
-                        <li><a class="dropdown-item" href="/users" id="userLink">User Profile</a></li>
+                        <li><a class="dropdown-item" href="/user" id="userLink">User Profile</a></li>
                         <li><a class="dropdown-item" href="/logout" id="logoutLink">Log Out</a></li>
                     </ul>
                 </li>
@@ -37,36 +37,60 @@
         </div>
     </div>
 </nav>
-
-<div class="container">
+<div class="container justify-content-center">
     <div class="row">
-        <div class="col-md-2">
-
+        <h1>Edit post</h1>
+    </div>
+    <form autocomplete="off" action="/posts/edit" method="POST" id="postForm">
+        <div class="mb-3">
         </div>
-        <div class="col-md-6">
-            <div class="post">
-                <h2>{{post.postTitle}}</h2>
-                <h6>By <a href="/users">user</a> on movie <a href="/movie">{{movie.title}}</a></h6>
-                <h5></h5>
-                <p class="postBody">{{post.postBody}}</p>
-                <p>{{post.postLikes}}</p>
-                <p>{{post.postDislikes}}</p>
-                <div><img alt={{post.postTitle}} src={{post.postImage}}></div>
-            </div>
-            <div>
-
-                <form action="/comments" method="POST" class="createComment">
-                    <label id="titleLabel">
-                        <input type="text" name="commentBody" title="body">
-                    </label>
-                    <input type="hidden" name="postID" value={{post._id}} />
-                    <button type="submit">Add Comment</button>
-                </form>
-            </div>
+        <div class="mb-3">
+            <label id="labelPostTitle" class="form-label">
+                Post Title
+                <input class="form-control" type="text" name={"title"} id="postTitleInput" placeholder="Title" />
+            </label>
         </div>
-        <div class="col-md-4">
-
+        <div class="mb-3">
+            <label id="labelPostDescription" class="form-label">
+                Description of Post
+                <textarea class="form-control" type="text" name="description" id="postDescriptionInput"
+                    placeholder="Description" rows="3"></textarea>
+            </label>
+        </div>
+        <div class="mb-3">
+            <label id="labelPostImage" class="form-label">
+                Choose image from assets folder
+                <input class="form-control" type="file" name="image" id="postImageInput" />
+            </label>
+        </div>
+        <div class="mb-3">
+            <label id="labelMovieGenres" class="form-label">
+                Select Post Tags (Hold CTRL to select multiple tags)
+                <select class="form-select" multiple name="tags" aria-label="tags" id="postTagsInput">
+                    <option selected>Choose tags for your posts</option>
+                    <option value="News">News</option>
+                    <option value="Discussion">Discussion</option>
+                    <option value="Review">Review</option>
+                    <option value="Trailers">Trailers</option>
+                    <option value="Question">Question</option>
+                    <option value="Recommendation">Recommendation</option>
+                    <option value="Article">Article</option>
+                    <option value="Spoilers">Spoilers</option>
+                </select>
+            </label>
+        </div>
+        <button type="submit" class="btn btn-primary">Create Post</button>
+    </form>
+</div>
+<footer id="footer">
+    <div class="container">
+        <div class="row">
+            <div id="footerCenter">
+                <div class="col">
+                    <a href="/trending" id="footerLink">Back to main page</a>
+                    <p>&copy; FilmCult</p>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-</div>
+</footer>

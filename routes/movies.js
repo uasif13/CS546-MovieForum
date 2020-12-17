@@ -30,7 +30,6 @@ router.get("/", async (req, res) => {
       throw "There is no session";
     }
     if (!req.session.user) {
-
       throw "You must be logged in before you can see a movie";
     }
     let allMovies = await moviesData.getAllMovies();
@@ -38,6 +37,8 @@ router.get("/", async (req, res) => {
   } catch (e) {
     // res.status(500).send(e)
     res.redirect("/");
+  }
+});
 
 router.get("/:id", async (req, res) => {
   try {
@@ -57,9 +58,9 @@ router.get("/:id", async (req, res) => {
     });
   } catch (e) {
     res.status(500).send(e);
-
   }
 });
+
 // Movie is created from user input
 router.post("/", async (req, res) => {
   try {

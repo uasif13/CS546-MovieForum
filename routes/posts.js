@@ -43,9 +43,11 @@ router.get("/:id", async (req, res) => {
     if (!req.params.id) {
       throw "You must provide a post id to query the database for";
     }
+
     const post = await postsData.getPost(xss(req.params.id));
     const movie = await moviesData.getMovie(post.postMovieId);
     const allComments = await commentsData.getAllComments(xss(req.params.id));
+
     res.render("partials/postPage", {
       post: post,
       movie: movie,
@@ -113,16 +115,14 @@ router.post("/", async (req, res) => {
       throw "No body was sent with POST request";
     }
     const data = req.body;
+    console.log(data);
     errorHandlePostCreation(data, req.session.user._id);
-            data.tags.forEach(tag => {
-                xss(tag)
-            });
     let addedPost = await postsData.createPost(
-      xss(ObjectID(data.movie)),
+      xss(data.movie),
       xss(req.session.user._id),
       xss(data.title),
       xss(data.description),
-      data.tags,
+      xss(data.tags),
       xss(data.image)
     );
     let movieOfPost = await moviesData.getMovie(addedPost.postMovieId);
@@ -139,34 +139,27 @@ router.post("/", async (req, res) => {
 
 router.get("/delete/:id", async (req, res) => {
   let postID = req.params.id;
+  let userID = req.session.user._id;
   const post = await postsData.getPost(postID);
-  if (post.postuserId === req.session.user._id) {
+
+  if (post.postuserId === userID) {
     try {
+      console.log("calling remove data");
       const deletedInfo = await postsData.removePost(postID);
     } catch (e) {
-      res.redirect(`/posts/${req.params.id}`, {
-        errorMessage: "Post could not be deleted!",
-      });
+      console.log("inside here");
+      res.redirect(`/`);
     }
-    res.redirect("/", {
-      successMessage: "Post deleted Successfully!",
-    });
+    res.redirect(`/`);
   } else {
-    res.redirect(`/posts/${req.params.id}`, {
-      errorMessage: "Unauthorized used! Cannot delete this post!",
-    });
+    res.redirect(`/`);
   }
 });
 
-router.get("edit/:id", async (rea, res) => {
-  let postID = req.params.id;
-  let updatedPost = req.body;
-  try {
-    const editedPost = await postsData.updatedPost(postID, updatedPost);
-  } catch (e) {
-    res.redirect(`/posts/${postID}`, { errorMessage: e });
-  }
-  res.redirect(`/posts/${postID}`, { successMessage: "Updated successful!" });
-});
+// router.get("edit/:id", async (req, res) => {
+//   let postID = req.params.id;
+//   const post = await postsData.getPost(postID);
+//   res.render("/partials/editPage", { post: post });
+// });
 
 module.exports = router;

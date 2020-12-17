@@ -80,7 +80,7 @@
             </div>
             <form id="signup-form" method="POST" action="/signup">
                 <div class="modal-body">
-                    {{#if error}}
+                    {{#if signupError}}
                     <div class="alert alert-warning" role="alert">
                         Invalid Credentials
                     </div>
@@ -125,7 +125,7 @@
             </div>
             <form id="login-form" method="POST" action="/login">
                 <div class="modal-body">
-                    {{#if error}}
+                    {{#if loginError}}
                     <div class="alert alert-warning" role="alert">
                         Invalid Username or Password
                     </div>

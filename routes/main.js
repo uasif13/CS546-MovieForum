@@ -8,6 +8,7 @@ const userData = data.users;
 const mongoCollections = require("../config/mongoCollections");
 const users = mongoCollections.users;
 const posts = mongoCollections.posts;
+const xss = require("xss")
 
 function ciEquals(a, b) {
   return typeof a === "string" && typeof b === "string"
@@ -18,26 +19,24 @@ router.get("/", async (req, res) => {
   if (req.session.user) {
     //Get all the necessary information to load the trending page
     //Load trending page
-    res.render("partials/trending", { title: "trending" });
+    res.render("partials/trending", { title: "See what's happening at FilmCult" });
     return;
   } else {
     // Load landing page
     res.render("partials/landing", {
-      title: "Join the conversation today at FilmCult", error: "This is a test"
-    });
+      title: "Join the conversation today at FilmCult"});
     return;
   }
 });
-router.get("/signup", async (req, res) => {
-  res.render("partials/signup", { title: "Signup!" });
-});
-router.get("/login", async (req, res) => {
-  res.render("partials/login", { title: "login!" });
-});
 router.get("/trending", async (req, res) => {
+  if (req.session.user) {
   const postsList = await postsData.getAllPosts();
   postsList.sort((a, b) => (a.postLikes > b.postLikes ? 1 : -1));
   res.render("partials/trending", { title: "trending!", posts: postsList });
+  }
+  else {
+    res.render("partials/landing", {title: "Join the conversation at FilmCult"})
+  }
 });
 router.post("/login", async (req, res) => {
   let found = false;
@@ -57,13 +56,13 @@ router.post("/login", async (req, res) => {
       if (!found) {
         res
           .status(401)
-          .render("partials/login", { error: true, title: "error" });
+          .render("partials/landing", {title: "Join the conversation at FilmCult!", loginError: true, title: "error" });
       } else {
         res.redirect("/trending");
       }
     }
   } else {
-    res.status(401).render("partials/login", { error: true, title: "error" });
+    res.status(401).render("partials/landing", {title: "Join the conversation at FilmCult!", loginError: true, title: "error" });
   }
 });
 router.post("/signup", async (req, res) => {
@@ -88,7 +87,7 @@ router.post("/signup", async (req, res) => {
       }
     }
     if (found) {
-      res.render("partials/signup", { error: true });
+      res.render("partials/landing", {title: "Join the conversation at FilmCult!", signupError: true });
     } else {
       const user = await userData.createUser(
         req.body.firstName,
@@ -101,19 +100,44 @@ router.post("/signup", async (req, res) => {
       res.redirect("/");
     }
   } else {
-    res.render("partials/signup", { error: true });
+    res.render("partials/landing", { title: "Join the conversation at FilmCult",signupError: true });
   }
 });
 
+router.get("/logout", async (req, res) => {
+  try {
+    if (!req.session) {
+        throw "There is no session"
+    }
+    if (!req.session.user) {
+        throw "You must be logged in before you can make a search"
+    }
+    res.session.destroy();
+    res.render("partials/landing",{title: "Join the conversation at FilmCult!"});
+  } catch(e) {
+    res.status(500).send(e)
+  }
+})
+
 // Get user profile page
 router.get("/user", async (req, res) => {
-  // Add error handling
-  let id = req.session._id;
-  const user = await userData.getUserByID(id);
-  // Need to get posts of users
-  // Need to get moviesRated of users
-  // Need to get REcommendations of users
+  try {
+    if (!req.session) {
+        throw "There is no session"
+    }
+    if (!req.session.user) {
+        throw "You must be logged in before you can make a search"
+    }
+    // Add error handling
+    let id = req.session.user._id;
+    const user = await userData.getUserByID(id);
+    // Need to get posts of users
+    // Need to get moviesRated of users
+    // Need to get REcommendations of users
   res.render("partials/userProfile.handlebars", {title: `${user.username}'s Profile`, user: user})
+  } catch(e) {
+    res.redirect("partials/landing", {title: "Join the conversation at FilmCult today!"}) 
+  }
 })
 
 module.exports = router;

@@ -69,8 +69,16 @@ module.exports = {
     },
     async getPostforMovie(movieId) {
         const parsedId = ObjectID(movieId);
+        const parsed = await movieMethods.getMovie(parsedId);
         const allPosts = await this.getAllPosts();
-        const postsforMovie = allPosts.filter(post => post.postMovieId === parsedId);
+        const postsforMovie = allPosts.filter(post => post.postMovieId === parsed._id);
+        return postsforMovie;
+    },
+    async getPostforUser(userId) {
+        const parsedId = ObjectID(userId);
+        const parsed = await userMethods.getMovie(parsedId);
+        const allPosts = await this.getAllPosts();
+        const postsforMovie = allPosts.filter(post => post.postuserId === parsed._id);
         return postsforMovie;
     },
     // The only things that can be edited about a post after creation are title, description, tags, and images

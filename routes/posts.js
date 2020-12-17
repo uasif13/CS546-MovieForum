@@ -7,31 +7,53 @@ const postsData = data.posts;
 const commentsData = data.comments;
 const userData = data.users;
 const spaceRegex = /^\s*$/;
+const xss = require("xss")
 
 // This should render a page to create a post
 router.get("/createPostPage", async (req, res) => {
-  const allMovies = await moviesData.getAllMovies();
-  allMovies.forEach((movie) => {
-    movie._id = movie._id.toString();
-  });
-  res.render("partials/createPost", {
-    title: "Create a post",
-    movies: allMovies,
-  });
+  try {
+    if (!req.session) {
+        throw "There is no session"
+    }
+    if (!req.session.user) {
+        throw "You must be logged in before you can make a search"
+    }
+    const allMovies = await moviesData.getAllMovies();
+    allMovies.forEach((movie) => {
+      movie._id = movie._id.toString();
+    });
+    res.render("partials/createPost", {
+      title: "Create a post",
+      movies: allMovies,
+    });
+  } catch (e) {
+    res.status(500).send(e);
+  }
 });
 
 // Gets post by user ID
 router.get("/:id", async (req, res) => {
-  const post = await postsData.getPost(req.params.id);
-  const movie = await moviesData.getMovie(post.postMovieId);
-  const allComments = await commentsData.getAllComments(req.params.id);
-  console.log(allComments);
-  res.render("partials/postPage", {
-    post: post,
-    movie: movie,
-    comments: allComments,
-
-  });
+  try {
+    if (!req.session) {
+        throw "There is no session"
+    }
+    if (!req.session.user) {
+        throw "You must be logged in before you can make a search"
+    }
+    if (!req.params.id) {
+      throw "You must provide a post id to query the database for"
+    }
+    const post = await postsData.getPost(xss(req.params.id));
+    const movie = await moviesData.getMovie(post.postMovieId);
+    const allComments = await commentsData.getAllComments(xss(req.params.id));
+    res.render("partials/postPage", {
+      post: post,
+      movie: movie,
+      comments: allComments,
+    });
+  } catch (e) {
+    res.status(500).send(e);
+  }
 });
 
 async function errorHandlePostCreation(data, userId) {
@@ -48,13 +70,13 @@ async function errorHandlePostCreation(data, userId) {
   }
   // A post must be about a movie in our movieCollection
   try {
-    await postsData.getPost(ObjectID(data.movie));
+    await postsData.getPost(ObjectID(xss(data.movie)));
   } catch (e) {
     throw "Could not find the movie in the database";
   }
   // A post must be written by a user in our UserCollection
   try {
-    await userData.getUserByID(ObjectID(userId));
+    await userData.getUserByID(ObjectID(xss(userId)));
   } catch (e) {
     throw "Could not find the user in the database";
   }
@@ -80,26 +102,37 @@ async function errorHandlePostCreation(data, userId) {
 }
 // Post is created from user input
 router.post("/", async (req, res) => {
-  if (!req.session.user) {
-    throw "Please sign in as a user";
+  try {
+    if (!req.session) {
+        throw "There is no session"
+    }
+    if (!req.session.user) {
+        throw "You must be logged in before you can make a search"
+    }
+    if (!req.body) {
+      throw "No body was sent with POST request"
+    }
+    const data = req.body;
+    console.log(data)
+    errorHandlePostCreation(data, req.session.user._id);
+    let addedPost = await postsData.createPost(
+      xss(data.movie),
+      xss(req.session.user._id),
+      xss(data.title),
+      xss(data.description),
+      xss(data.tags),
+      xss(data.image)
+    );
+    let movieOfPost = await moviesData.getMovie(addedPost.postMovieId);
+    res.render("partials/postPage", {
+      title: addedPost.title,
+      post: addedPost,
+      movie: movieOfPost,
+      allComments: [],
+    });
+  } catch (e) {
+    res.status(500).send(e);
   }
-  const data = req.body;
-  errorHandlePostCreation(data, req.session.user._id);
-  let addedPost = await postsData.createPost(
-    data.movie,
-    req.session.user._id,
-    data.title,
-    data.description,
-    data.tags,
-    data.image
-  );
-  let movieOfPost = await moviesData.getMovie(addedPost.postMovieId);
-  res.render("partials/postPage", {
-    title: addedPost.title,
-    post: addedPost,
-    movie: movieOfPost,
-    allComments: [],
-  });
 });
 
 module.exports = router;

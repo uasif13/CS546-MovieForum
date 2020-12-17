@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const data = require("../data/index");
 const moviesData = data.movies;
+const postsData = data.posts;
 const axios = require("axios");
 const movies = require("../data/movies");
 const API_KEY = "2c5709ff90e8aeb0f12febf13b682fa8";

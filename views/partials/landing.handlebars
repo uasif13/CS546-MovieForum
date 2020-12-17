@@ -1,3 +1,152 @@
-<h1>Welcome to FilmCult</h1>
-<a href="/signup">signup</a>
-<a href="/login">login</a>
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <img alt="FilmCult" src="../../public/assets/titleIcon.svg" class="d-inline-block align-top" id="logo">
+            FilmCult
+        </a>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
+            Log In
+        </button>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <div id="landingMessageCenter">
+            <div class="col-xs-12" id="LandingMessage">
+                <h1>Join the conversation today</h1>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signupModal">
+                    Sign Up
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h2>Check out all the features that FilmCult has!</h2>
+            <div class="accordion" id="accordianLanding">
+                <div class="accordionItem">
+                    <h2 class="accordion-header" id="accordionHeaderOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                            Discuss Movies with Posts
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="accordionHeaderOne"
+                        data-bs-parent="#accordionLanding">
+                        <div class="accordion-body">
+                            After choosing a movie, a user can create a post about the movie. Each post contains a
+                            title, description, tags for the post content, and an optional image upload.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordionItem">
+                    <h2 class="accordion-header" id="accordionHeaderTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Comment, Like, and Dislike on Posts
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="accordionHeaderTwo"
+                        data-bs-parent="#accordionLanding">
+                        <div class="accordion-body">
+                            Users can comment, like, or dislike posts
+                        </div>
+                    </div>
+                </div>
+                <div class="accordionItem">
+                    <h2 class="accordion-header" id="accordionHeaderThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            Search for movies, posts, or users
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="accordionHeaderThree"
+                        data-bs-parent="#accordionLanding">
+                        <div class="accordion-body">
+                            Users can either search for movies, posts, or users based of a search query.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signUpModalTitleLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="signUpModalTitleLabel">Sign Up</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+            </div>
+            <form id="signup-form" method="POST" action="/signup">
+                <div class="modal-body">
+                    {{#if signupError}}
+                    <div class="alert alert-warning" role="alert">
+                        Invalid Credentials
+                    </div>
+                    {{/if}}
+                    <div class="mb-3">
+                        <label for="firstName" class="form-label">First Name: </label>
+                        <input type="text" class="form-control" id="firstName" name="firstName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="lastName" class="form-label">Last Name: </label>
+                        <input type="text" class="form-control" id="lastName" name="lastName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="userName" class="form-label">UserName: </label>
+                        <input type="text" class="form-control" id="userName" name="userName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email: </label>
+                        <input type="email" class="form-control" id="email" name="email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="signupPassword" class="form-label">Password: </label>
+                        <input type="password" class="form-control" id="signupPassword" name="password">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-bs-dismiss="modal" data-bs-toggle="modal"
+                        data-bs-target="#loginModal">Current User? Log In</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="Submit" class="btn btn-primary" value="Submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalTitleLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="loginModalTitleLabel">Log In</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+            </div>
+            <form id="login-form" method="POST" action="/login">
+                <div class="modal-body">
+                    {{#if loginError}}
+                    <div class="alert alert-warning" role="alert">
+                        Invalid Username or Password
+                    </div>
+                    {{/if}}
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Please Enter a Username: </label>
+                        <input type="text" class="form-control" id="username" name="username">
+                    </div>
+                    <div class="mb-3">
+                        <label for="loginpassword" class="form-label">Please Enter a Password: </label>
+                        <input type="password" class="form-control" id="loginpassword" name="password">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-bs-dismiss="modal" data-bs-toggle="modal"
+                        data-bs-target="#signupModal">New User?
+                        Sign In</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="Submit" class="btn btn-primary" value="Submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

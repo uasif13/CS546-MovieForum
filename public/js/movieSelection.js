@@ -4,6 +4,13 @@
     input = $('#searchMovieQuery'),
     showList = $('#apiMovieList');
 
+    // Create an array of movies from our database
+    let requestConfig = {
+        method: "GET",
+        url: "http:localhost:3000/movies"
+    }
+    
+
     form.submit (function (event) {
         event.preventDefault();
         const spaceRegex = /^\s*$/;

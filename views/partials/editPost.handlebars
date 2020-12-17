@@ -9,7 +9,7 @@
                     <a class="nav-link" href="/trending">Home</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navBarDropdown" role="button"
+                    <a class="nav-link active dropdown-toggle" href="#" id="navBarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         Create
                     </a>
@@ -19,17 +19,17 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="/search">Search</a>
+                    <a class="nav-link" href="/search">Search</a>
                 </li>
             </ul>
-            <div class="d-flex">
+            <div class="d-flex" href="/user">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navBarUserDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <img alt="User Profile" src="../../public/assets/userIcon.svg">
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navBarUserDropdown">
-                        <li><a class="dropdown-item" href="/user" id="userLink">User Profile</a></li>
+                        <li><a class="dropdown-item" href="/users" id="userLink">User Profile</a></li>
                         <li><a class="dropdown-item" href="/logout" id="logoutLink">Log Out</a></li>
                     </ul>
                 </li>
@@ -37,40 +37,36 @@
         </div>
     </div>
 </nav>
-<div class="container justify-content-center">
+
+<div class="container">
     <div class="row">
-        <h1>Search</h1>
-    </div>
-    <form action="/search" method="POST" class="searchForm">
-        <div id="searchType" class="md-3">
-            <select class="form-select" name="searchItem" id="searchItemSelect" aria-label="selectType">
-                <option selected disabled hidden>Choose a search type below</option>
-                <option value="movie">Movie</option>
-                <option value="post">Post</option>
-                <option value="user">User</option>
-            </select>
+        <div class="col-md-2">
+
         </div>
-        <div id="searchQuery" class="md-3">
-            <label id="searchQueryLabel" class="form-label">
-                Keyword
-                <input class="form-control" type="text" name="searchQuery" id="searchQueryInput"
-                    placeholder="Keyword" />
-            </label>
-        </div>
-        <button class="btn btn-primary" id="searchButton" type="submit">
-            Search
-        </button>
-    </form>
-</div>
-<footer id="footer">
-    <div class="container">
-        <div class="row">
-            <div id="footerCenter">
-                <div class="col">
-                    <a href="/trending" id="footerLink">Back to main page</a>
-                    <p>&copy; FilmCult</p>
-                </div>
+        <div class="col-md-6">
+            <div class="post">
+                <h2>{{post.postTitle}}</h2>
+                <h6>By <a href="/users">user</a> on movie <a href="/movie">{{movie.title}}</a></h6>
+                <h5></h5>
+                <p class="postBody">{{post.postBody}}</p>
+                <p>{{post.postLikes}}</p>
+                <p>{{post.postDislikes}}</p>
+                <div><img alt={{post.postTitle}} src={{post.postImage}}></div>
+            </div>
+            <div>
+
+                <form action="/comments" method="POST" class="createComment">
+                    <label id="titleLabel">
+                        <input type="text" name="commentBody" title="body">
+                    </label>
+                    <input type="hidden" name="postID" value={{post._id}} />
+                    <button type="submit">Add Comment</button>
+                </form>
             </div>
         </div>
+        <div class="col-md-4">
+
+        </div>
     </div>
-</footer>
+</div>
+</div>

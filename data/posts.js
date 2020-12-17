@@ -3,17 +3,19 @@ const mongoCollections = require("../config/mongoCollections");
 const posts = mongoCollections.posts;
 const movieMethods = require("./movies");
 const userMethods = require("./users");
-
+const commentMethods = require("./comments");
 function sProvided(param, paramName) {
   if (!param || typeof param !== "string") {
     throw `Invalid post ${paramName} since ${paramName} is not a string`;
   }
 }
 function aProvided(param, paramName) {
+    console.log(Array.isArray(param))
   if (!Array.isArray(param)) {
     throw `Invalid post ${paramName} since ${paramName} is not an array`;
   }
 }
+
 async function errorHandlingCreatePost(
   movieId,
   userId,
@@ -138,6 +140,15 @@ module.exports = {
     const post = await this.getPost(parsedId);
     const title = post.title;
     const postCollection = await posts();
+
+    if (!(Array.isArray(post.postReplies) && post.postReplies.length)) {
+      const commentDeletetionInfo = await commentMethods.deleteAllCommentsOfPost(
+        postId
+      );
+      if (commentDeletetionInfo.deletedCount === 0) {
+        throw "Could not remove the post";
+      }
+    }
 
     const deletionInfo = await postCollection.removeOne({ _id: parsedId });
     if (deletionInfo.deletedCount === 0) {

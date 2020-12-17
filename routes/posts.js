@@ -7,16 +7,16 @@ const postsData = data.posts;
 const commentsData = data.comments;
 const userData = data.users;
 const spaceRegex = /^\s*$/;
-const xss = require("xss")
+const xss = require("xss");
 
 // This should render a page to create a post
 router.get("/createPostPage", async (req, res) => {
   try {
     if (!req.session) {
-        throw "There is no session"
+      throw "There is no session";
     }
     if (!req.session.user) {
-        throw "You must be logged in before you can make a search"
+      throw "You must be logged in before you can make a search";
     }
     const allMovies = await moviesData.getAllMovies();
     allMovies.forEach((movie) => {
@@ -35,13 +35,13 @@ router.get("/createPostPage", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     if (!req.session) {
-        throw "There is no session"
+      throw "There is no session";
     }
     if (!req.session.user) {
-        throw "You must be logged in before you can make a search"
+      throw "You must be logged in before you can make a search";
     }
     if (!req.params.id) {
-      throw "You must provide a post id to query the database for"
+      throw "You must provide a post id to query the database for";
     }
     const post = await postsData.getPost(xss(req.params.id));
     const movie = await moviesData.getMovie(post.postMovieId);
@@ -104,23 +104,25 @@ async function errorHandlePostCreation(data, userId) {
 router.post("/", async (req, res) => {
   try {
     if (!req.session) {
-        throw "There is no session"
+      throw "There is no session";
     }
     if (!req.session.user) {
-        throw "You must be logged in before you can make a search"
+      throw "You must be logged in before you can make a search";
     }
     if (!req.body) {
-      throw "No body was sent with POST request"
+      throw "No body was sent with POST request";
     }
     const data = req.body;
-    console.log(data)
     errorHandlePostCreation(data, req.session.user._id);
+            data.tags.forEach(tag => {
+                xss(tag)
+            });
     let addedPost = await postsData.createPost(
-      xss(data.movie),
+      xss(ObjectID(data.movie)),
       xss(req.session.user._id),
       xss(data.title),
       xss(data.description),
-      xss(data.tags),
+      data.tags,
       xss(data.image)
     );
     let movieOfPost = await moviesData.getMovie(addedPost.postMovieId);
@@ -133,6 +135,38 @@ router.post("/", async (req, res) => {
   } catch (e) {
     res.status(500).send(e);
   }
+});
+
+router.get("/delete/:id", async (req, res) => {
+  let postID = req.params.id;
+  const post = await postsData.getPost(postID);
+  if (post.postuserId === req.session.user._id) {
+    try {
+      const deletedInfo = await postsData.removePost(postID);
+    } catch (e) {
+      res.redirect(`/posts/${req.params.id}`, {
+        errorMessage: "Post could not be deleted!",
+      });
+    }
+    res.redirect("/", {
+      successMessage: "Post deleted Successfully!",
+    });
+  } else {
+    res.redirect(`/posts/${req.params.id}`, {
+      errorMessage: "Unauthorized used! Cannot delete this post!",
+    });
+  }
+});
+
+router.get("edit/:id", async (rea, res) => {
+  let postID = req.params.id;
+  let updatedPost = req.body;
+  try {
+    const editedPost = await postsData.updatedPost(postID, updatedPost);
+  } catch (e) {
+    res.redirect(`/posts/${postID}`, { errorMessage: e });
+  }
+  res.redirect(`/posts/${postID}`, { successMessage: "Updated successful!" });
 });
 
 module.exports = router;

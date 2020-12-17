@@ -31,12 +31,14 @@ router.get("/", async (req, res) => {
       throw "There is no session";
     }
     if (!req.session.user) {
-      throw "You must be logged in before you can make a search";
+
+      throw "You must be logged in before you can see a movie";
     }
     let allMovies = await moviesData.getAllMovies();
     res.json(allMovies);
   } catch (e) {
-    res.status(500).send(e);
+    // res.status(500).send(e)
+    res.redirect("/");
   }
 });
 router.get("/:id", async (req, res) => {
@@ -49,10 +51,28 @@ router.get("/:id", async (req, res) => {
     }
     let movie = await moviesData.getMovie(req.params.id);
     let postsList = await postsData.getPostforMovie(req.params.id);
+    postsList.sort((a, b) => (a.postLikes > b.postLikes ? 1 : -1));
     res.render("partials/moviePage", {
       title: movie.title,
       movie: movie,
       posts: postsList,
+    });
+  } catch (e) {
+    res.status(500).send(e);
+  }
+});
+router.get("/detail/:id", async (req, res) => {
+  try {
+    if (!req.session) {
+      throw "There is no session";
+    }
+    if (!req.session.user) {
+      throw "You must be logged in before you can make a search";
+    }
+    let movie = await moviesData.getMovie(req.params.id);
+    res.render("partials/showDetails", {
+      title: "Show Details",
+      show: movie,
     });
   } catch (e) {
     res.status(500).send(e);
@@ -71,7 +91,6 @@ router.post("/", async (req, res) => {
       throw "No body was sent with POST request";
     }
     let data = req.body;
-    console.log(data);
     let addedMovie = {};
     if (
       req.body.title &&
@@ -80,10 +99,13 @@ router.post("/", async (req, res) => {
       req.body.image &&
       req.body.budget
     ) {
+      data.genres.forEach((genre) => {
+        xss(genre);
+      });
       addedMovie = await moviesData.createMovie(
         xss(data.title),
         xss(data.description),
-        xss(data.genres),
+        data.genres,
         xss(data.budget),
         xss(data.image)
       );

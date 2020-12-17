@@ -3,6 +3,7 @@ var router = express.Router();
 const ObjectID = require('mongodb').ObjectID;
 const userMethods = require('../data/users');
 
+
 router.get('/update', (req,res,next) => {
     if(!req.params) {
         return next();
@@ -19,20 +20,17 @@ router.get('/update', (req,res,next) => {
      }   
 });
 
-router.get('/' , (req, res,next) => {
-    const users = req.app.locals.users;
-    const username = req.params.username;
-    //console.log(req.session.userId);
-    const userId = req.session.user._id;
-    try{
-        let user =  userMethods.getUserByID(userId);
-        res.render('partials/userProfile', {user:user});
-
-    }
-    catch(e){
-
-    }
+router.get("/", (req, res, next) => {
+  const users = req.app.locals.users;
+  const username = req.params.username;
+  console.log(req.session.userId);
+  const userId = req.session.user._id;
+  try {
+    let user = userMethods.getUserByID(userId);
+    res.render("partials/userProfile", { user: user });
+  } catch (e) {}
 });
+
 
 
 router.post("/", async (req, res) => {

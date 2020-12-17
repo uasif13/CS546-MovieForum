@@ -4,23 +4,39 @@ $(document).ready(function () {
     $("#post").css({ display: "none" });
     $("#recommendations").empty();
     let currentId = $(this).attr("href");
+    let title = $("#title");
     $.ajax({
       method: "GET",
       data: {
         api_key: "2c5709ff90e8aeb0f12febf13b682fa8",
+        query: title.text(),
+        language: "en-US",
+        page: 1,
       },
-      url: "http://api.themoviedb.org/3/movie" + currentId + "/recommendations",
-    })
-      .then(function (movies) {
-        $.each(movies.results, function (i, data) {
-          $("#recommendations").append("<li>" + data.title + "</a></li");
-        });
+      url: "http://api.themoviedb.org/3/search/movie",
+    }).then(function (movies) {
+      $.ajax({
+        method: "GET",
+        data: {
+          api_key: "2c5709ff90e8aeb0f12febf13b682fa8",
+        },
+        url:
+          "http://api.themoviedb.org/3/movie/" +
+          movies.results[0].id +
+          "/recommendations",
       })
-      .then(function () {
-        $("#reccomendations").css({ display: "block" });
-        $("#rec").css({ display: "none" });
-        $("#postLink").css({ display: "block" });
-        $("#recTitle").css({ display: "block" });
-      });
+        .then(function (recs) {
+          console.log(recs);
+          $.each(recs.results, function (i, data) {
+            $("#recommendations").append("<li>" + data.title + "</a></li");
+          });
+        })
+        .then(function () {
+          $("#reccomendations").css({ display: "block" });
+          $("#rec").css({ display: "none" });
+          $("#postLink").css({ display: "block" });
+          $("#recTitle").css({ display: "block" });
+        });
+    });
   });
 });

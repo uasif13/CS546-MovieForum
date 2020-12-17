@@ -55,9 +55,7 @@ module.exports = {
   },
 
   async getAllComments(postId) {
-    //const parsedId = ObjectID(postId);
     const commentCollection = await comments();
-
     let commentList = await commentCollection
       .find({ repliedToPost: postId })
       .toArray();

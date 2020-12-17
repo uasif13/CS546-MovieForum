@@ -56,13 +56,13 @@ router.post("/login", async (req, res) => {
       if (!found) {
         res
           .status(401)
-          .render("partials/landing", {title: "Join the conversation at FilmCult!", loginError: true, title: "error" });
+          .render("partials/landing", {title: "Join the conversation at FilmCult!", loginError: true});
       } else {
         res.redirect("/trending");
       }
     }
   } else {
-    res.status(401).render("partials/landing", {title: "Join the conversation at FilmCult!", loginError: true, title: "error" });
+    res.status(401).render("partials/landing", {title: "Join the conversation at FilmCult!", loginError: true});
   }
 });
 router.post("/signup", async (req, res) => {
@@ -113,7 +113,7 @@ router.get("/logout", async (req, res) => {
         throw "You must be logged in before you can make a search"
     }
     req.session.destroy();
-    res.render("partials/landing",{title: "Join the conversation at FilmCult!"});
+    res.redirect("/");
   } catch(e) {
     res.status(500).send(e)
   }

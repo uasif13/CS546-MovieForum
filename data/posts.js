@@ -10,7 +10,7 @@ function sProvided(param, paramName) {
   }
 }
 function aProvided(param, paramName) {
-    console.log(Array.isArray(param))
+  console.log(Array.isArray(param));
   if (!Array.isArray(param)) {
     throw `Invalid post ${paramName} since ${paramName} is not an array`;
   }
@@ -87,6 +87,7 @@ module.exports = {
     const parsedId = ObjectID(movieId);
     const parsed = await movieMethods.getMovie(parsedId);
     const allPosts = await this.getAllPosts();
+    
     const postsforMovie = allPosts.filter((post) =>
       post.postMovieId.equals(parsed._id)
     );
@@ -128,10 +129,18 @@ module.exports = {
       aProvided(updatedParams.postReplies, "comments");
       post.postReplies = updatedParams.postReplies;
     }
-    const updatedInfo = await postCollection.updateOne(
-      { _id: parsedId },
-      { $set: post }
-    );
+
+    try {
+      const updatedInfo = await postCollection.updateOne(
+        { _id: parsedId },
+        { $set: updatedParams }
+      );
+      if (updatedInfo.modifiedCount === 0) {
+        throw "Could not update the post";
+      }
+    } catch (e) {
+      throw e;
+    }
     const updatedPost = await this.getPost(parsedId);
     return updatedPost;
   },
@@ -140,16 +149,7 @@ module.exports = {
     const post = await this.getPost(parsedId);
     const title = post.title;
     const postCollection = await posts();
-
-    if (!(Array.isArray(post.postReplies) && post.postReplies.length)) {
-      const commentDeletetionInfo = await commentMethods.deleteAllCommentsOfPost(
-        postId
-      );
-      if (commentDeletetionInfo.deletedCount === 0) {
-        throw "Could not remove the post";
-      }
-    }
-
+    //console.log("deleling post");
     const deletionInfo = await postCollection.removeOne({ _id: parsedId });
     if (deletionInfo.deletedCount === 0) {
       throw "Could not remove the post";

@@ -79,14 +79,18 @@ module.exports = {
   },
 
   async deleteAllCommentsOfPost(postID) {
-    let post = await postMethods.getPost(postID);
-    let commentsList = post.postReplies;
+    //console.log("inside datacomments");
 
-    commentsList.forEach((id) => {
-      deleteComment(id);
+    const commentCollection = await comments();
+    //console.log(commentsList);
+
+    const deletedInfo = await commentCollection.deleteMany({
+      repliedToPost: postID,
     });
-    let newPost = { postReplies: [] };
-    await postMethods.editPost(postID, newPost);
+    if (deletedInfo === 0) {
+      throw "Comment could not be removed";
+    }
+    // return "nothing to delete";
   },
 
   async editComment(commentId, newBody) {

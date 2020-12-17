@@ -78,21 +78,20 @@ module.exports = {
       throw "Invalid First Name";
     }
 
-    const userCollection = await users();
     const updateUser = {
-      firstname : newfirstname,
-      lastname : newlastname,
-      username : newusername,
-      email : newemail,
-    }
-    const updatedInfo = await userCollection.updateOne({_id:ObjectID(id)},{$set : updateUser});
-    if(updatedInfo.modifiedCount === 0){
-      throw `Could not update user`
-    }
-    else {
+      firstname: newfirstname,
+      lastname: newlastname,
+      username: newusername,
+      email: newemail,
+    };
+    const updatedInfo = await userCollection.updateOne(
+      { _id: ObjectID(id) },
+      { $set: updateUser }
+    );
+    if (updatedInfo.modifiedCount === 0) {
+      throw `Could not update user`;
+    } else {
       return await this.getUserByID(id);
     }
-  
-  }
-
+  },
 };

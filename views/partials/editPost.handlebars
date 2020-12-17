@@ -41,20 +41,21 @@
     <div class="row">
         <h1>Edit post</h1>
     </div>
-    <form autocomplete="off" action="/posts/edit" method="POST" id="postForm">
+    <form autocomplete="off" action="/edits/{{post._id}}" method="POST" id="postForm">
         <div class="mb-3">
+            <input type="hidden" name="postID" value={{post._id}} />
         </div>
         <div class="mb-3">
             <label id="labelPostTitle" class="form-label">
                 Post Title
-                <input class="form-control" type="text" name={"title"} id="postTitleInput" placeholder="Title" />
+                <input class="form-control" type="text" name="title" id="postTitleInput" value={{post.postTitle}} />
             </label>
         </div>
         <div class="mb-3">
             <label id="labelPostDescription" class="form-label">
                 Description of Post
-                <textarea class="form-control" type="text" name="description" id="postDescriptionInput"
-                    placeholder="Description" rows="3"></textarea>
+                <input class="form-control" type="text" name="description" id="postDescriptionInput"
+                    value={{post.postBody}} rows="3"></input>
             </label>
         </div>
         <div class="mb-3">
@@ -79,7 +80,7 @@
                 </select>
             </label>
         </div>
-        <button type="submit" class="btn btn-primary">Create Post</button>
+        <button type="submit" class="btn btn-primary">Edit Post</button>
     </form>
 </div>
 <footer id="footer">

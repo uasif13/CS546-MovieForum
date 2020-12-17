@@ -129,10 +129,18 @@ module.exports = {
       aProvided(updatedParams.postReplies, "comments");
       post.postReplies = updatedParams.postReplies;
     }
-    const updatedInfo = await postCollection.updateOne(
-      { _id: parsedId },
-      { $set: post }
-    );
+
+    try {
+      const updatedInfo = await postCollection.updateOne(
+        { _id: parsedId },
+        { $set: updatedParams }
+      );
+      if (updatedInfo.modifiedCount === 0) {
+        throw "Could not update the post";
+      }
+    } catch (e) {
+      throw e;
+    }
     const updatedPost = await this.getPost(parsedId);
     return updatedPost;
   },

@@ -3,7 +3,7 @@ const searchRoutes = require("./search");
 const postsRoutes = require("./posts");
 const moviesRoutes = require("./movies");
 const commentRoutes = require("./comments");
-// const userRoutes = require("./user");
+ const userRoutes = require("./users");
 // Insert separate routes for the different functions
 
 const constructor = (app) => {
@@ -12,7 +12,7 @@ const constructor = (app) => {
   app.use("/posts", postsRoutes);
   app.use("/comments", commentRoutes);
   app.use("/movies", moviesRoutes);
-  // app.use("/user", userRoutes);
+  app.use("/users", userRoutes);
   app.use("/", mainRoutes);
   app.use("*", (req, res) => {
     res.status(404).json({ error: "Not found" });

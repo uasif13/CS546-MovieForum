@@ -15,11 +15,11 @@ router.get("/create", async (req, res) => {
       throw "There is no session";
     }
     if (!req.session.user) {
-      throw "You must be logged in before you can make a movie";
+      throw "You must be logged in before you can make a search";
     }
     res.render("partials/createMovie", { title: "Create a movie" });
   } catch (e) {
-    res.redirect("/");
+    res.status(500).send(e);
   }
 });
 
@@ -30,6 +30,7 @@ router.get("/", async (req, res) => {
       throw "There is no session";
     }
     if (!req.session.user) {
+
       throw "You must be logged in before you can see a movie";
     }
     let allMovies = await moviesData.getAllMovies();
@@ -37,6 +38,26 @@ router.get("/", async (req, res) => {
   } catch (e) {
     // res.status(500).send(e)
     res.redirect("/");
+
+router.get("/:id", async (req, res) => {
+  try {
+    if (!req.session) {
+      throw "There is no session";
+    }
+    if (!req.session.user) {
+      throw "You must be logged in before you can make a search";
+    }
+    let movie = await moviesData.getMovie(req.params.id);
+    let postsList = await postsData.getPostforMovie(req.params.id);
+    postsList.sort((a, b) => (a.postLikes > b.postLikes ? 1 : -1));
+    res.render("partials/moviePage", {
+      title: movie.title,
+      movie: movie,
+      posts: postsList,
+    });
+  } catch (e) {
+    res.status(500).send(e);
+
   }
 });
 // Movie is created from user input

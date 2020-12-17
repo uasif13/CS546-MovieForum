@@ -49,6 +49,7 @@ router.get("/:id", async (req, res) => {
     }
     let movie = await moviesData.getMovie(req.params.id);
     let postsList = await postsData.getPostforMovie(req.params.id);
+    postsList.sort((a, b) => (a.postLikes > b.postLikes ? 1 : -1));
     res.render("partials/moviePage", {
       title: movie.title,
       movie: movie,

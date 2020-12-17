@@ -3,7 +3,6 @@ $(document).ready(function () {
     event.preventDefault();
     $("#post").css({ display: "none" });
     $("#recommendations").empty();
-    let currentId = $(this).attr("href");
     let title = $("#title");
     $.ajax({
       method: "GET",

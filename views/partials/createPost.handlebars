@@ -37,58 +37,64 @@
         </div>
     </div>
 </nav>
-<h1>Create a new Post</h1>
-<form autocomplete="off" action="/posts" method="POST" class="postForm">
-    <div class="formParam" id="postTitle">
-        <label id="postTitleLabel">
-            Title
-            <input type="text" name="title" id="postTitleInput" placeholder="Title" />
-        </label>
+<div class="container justify-content-center">
+    <div class="row">
+        <h1>Create a post</h1>
     </div>
-    <div class="formParam" id="postDescription">
-        <label id="postDescriptionLabel">
-            Description
-            <input type="text" name="description" id="postDescriptionInput" placeholder="Description" />
-        </label>
-    </div>
-    <div class="autocomplete">
-        <label id="postMovieLabel">
-            Movie
-            <select name="movie" id="movieSelect">
-                <option value="none" selected disabled hidden>
-                    Select a movie
-                </option>
-                {{#each movies}}
-                <option value="{{this._id}}">{{this.title}}</option>
-                {{/each}}
-            </select>
-            {{!-- <input type="text" name="movie" id="postMovieInput" placeholder="Movie" /> --}}
-        </label>
-    </div>
-    <div>
-        <p>Movie not found? Click the link below to create a movie</p>
-        <a href="/movies/create" id="createMovieLink">Create movie</a>
-    </div>
-    <div class="formParam" id="postBoxes">
-        <label><input type="checkbox" name="tags[]" value="News" />News</label>
-        <label><input type="checkbox" name="tags[]" value="Discussion" />Discussion</label>
-        <label><input type="checkbox" name="tags[]" value="Review" />Review</label>
-        <label><input type="checkbox" name="tags[]" value="Trailers" />Trailers</label>
-        <label><input type="checkbox" name="tags[]" value="Question" />Question</label>
-        <label><input type="checkbox" name="tags[]" value="Recommendation" />Recommendation</label>
-        <label><input type="checkbox" name="tags[]" value="Article" />Article</label>
-        <label><input type="checkbox" name="tags[]" value="Spoilers" />Spoilers</label>
-    </div>
-    <div class="formParam" id="postImage">
-        <label id="postImageLabel">
-            Image URL
-            <input type="file" name="image" id="postImageInput" />
-        </label>
-    </div>
-    <div class="formSubmission" id="postSubmit">
-        <button class="formButtons" id="postButton" type="submit">Create Post</button>
-    </div>
-</form>
+    <form action="/posts" method="POST" class="postForm">
+        <div class="mb-3">
+            <label class="form-label" id="postMovieLabel">
+                Movie
+                <input class="form-control" list="movies" id="movieListChoice" placeholder="Type to search...">
+                <datalist id="movies">
+                    {{#each movies}}
+                    <option value="{{this._id}}">{{this.title}}</option>
+                    {{/each}}
+                </datalist>
+                <div>
+                    Can't find the movie that you are looking for?
+                </div>
+                <a href="/movies/create" id="movieLink">Create a Movie</a>
+            </label>
+        </div>
+        <div class="mb-3">
+            <label id="labelPostTitle" class="form-label">
+                Post Title
+                <input class="form-control" type="text" name="title" id="postTitleInput" placeholder="Title" />
+            </label>
+        </div>
+        <div class="mb-3">
+            <label id="labelPostDescription" class="form-label">
+                Description of Post
+                <textarea class="form-control" type="text" name="description" id="postDescriptionInput"
+                    placeholder="Description" rows="3"></textarea>
+            </label>
+        </div>
+        <div class="mb-3">
+            <label id="labelPostImage" class="form-label">
+                Choose image from assets folder
+                <input class="form-control" type="file" name="image" id="postImageInput" />
+            </label>
+        </div>
+        <div class="mb-3">
+            <label id="labelMovieGenres" class="form-label">
+                Select Post Tags
+                <select class="form-select" multiple aria-label="tags">
+                    <option selected>Choose tags for your posts</option>
+                    <option value="News">News</option>
+                    <option value="Discussion">Discussion</option>
+                    <option value="Review">Review</option>
+                    <option value="Trailers">Trailers</option>
+                    <option value="Question">Question</option>
+                    <option value="Recommendation">Recommendation</option>
+                    <option value="Article">Article</option>
+                    <option value="Spoilers">Spoilers</option>
+                </select>
+            </label>
+        </div>
+        <button type="submit" class="btn btn-primary">Create Post</button>
+    </form>
+</div>
 <footer id="footer">
     <div class="container">
         <div class="row">

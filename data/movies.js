@@ -9,7 +9,7 @@ function sProvided(param, paramName) {
 }
 
 module.exports = {
-    async createMovie(title, description, genres, budget, image = './public/assets/no_image.jpg') {
+    async createMovie(title, description, genres, budget, image = 'no_image.jpg') {
         sProvided(title, "title")       
         sProvided(description, "description")       
         if (!Array.isArray(genres)) throw "Genres is not an array"
@@ -19,7 +19,7 @@ module.exports = {
         let movie = {
             title: title,
             rating: [0,0],
-            image: image, 
+            image: `../../public/assets/${image}`, 
             description: description,
             genres: genres,
             budget: budget

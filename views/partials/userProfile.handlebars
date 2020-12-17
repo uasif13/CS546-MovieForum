@@ -1,0 +1,32 @@
+<div class="navBar">
+    <a href="/trending"><img alt="FilmCult" src="../../public/assets/titleIcon.svg" class="logo"></a>
+    <a href="/search" id="searchLink">Search for a movie, recommendation, or post</a>
+    <a href="/posts/createPostPage" id="postLink">Create post</a>
+    <a href="/movies/create" id="createMovieLink">Create movie</a>
+</div>
+<div>
+    <h1>{{title}}</h1>
+    <div>
+        <h2>{{user.username}}'s' Account</h2>
+        <div>
+            <ul>
+                <li>First Name: {{user.firstName}}</li>
+                <li>Last Name: {{user.lastName}}</li>
+                <li>UserName: {{user.username}}</li>
+                <li>Email: {{user.email}}</li>
+            </ul>
+        </div>
+    </div>
+    <div>
+        <h2>{{user.username}}'s Posts</h2>
+    </div>
+    <div>
+        <h2>Movies {{user.username}} Has Rated</h2>
+    </div>
+    <div>
+        <h2>{{user.username}}'s Recommendations</h2>
+    </div>
+</div>
+<footer class="footer">
+    <p>FilmCult</p>
+</footer>

@@ -6,7 +6,7 @@
         <div class="collapse navbar-collapse" id="navBar Supported Content">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" href="/trending">Home</a>
+                    <a class="nav-link" href="/trending">Home</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navBarDropdown" role="button"
@@ -19,7 +19,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/search">Search</a>
+                    <a class="nav-link active" href="/search">Search</a>
                 </li>
             </ul>
             <div class="d-flex" href="/user">
@@ -37,26 +37,31 @@
         </div>
     </div>
 </nav>
-<h1>trending page</h1>
-<ul class="posts">
-    {{#each posts}}
-    <li>
-        <a href="/posts/{{this._id}}">{{this.postTitle}}: Author: {{this.authorName}}</a>
-        <ul>
-            <li>
-                {{this.postBody}}
-            </li>
-        </ul>
-    </li>
-    {{/each}}
-</ul>
-{{!-- <div id="movie"> --}}
+<div class="container justify-content-center">
+    <div class="row">
+        <h1>Search</h1>
+    </div>
+    <form action="/search" method="POST" class="searchForm">
+        <div id="searchType" class="md-3">
+            <select class="form-select" name="searchItem" id="searchItemSelect" aria-label="selectType">
+                <option selected disabled hidden>Choose a search type below</option>
+                <option value="movie">Movie</option>
+                <option value="post">Post</option>
+                <option value="user">User</option>
+            </select>
+        </div>
+        <div id="searchQuery" class="md-3">
+            <label id="searchQueryLabel" class="form-label">
+                Keyword
+                <input class="form-control" type="text" name="searchQuery" id="searchQueryInput"
+                    placeholder="Keyword" />
+            </label>
+        </div>
+        <button class="btn btn-primary" id="searchButton" type="submit">
+            Search
+        </button>
+    </form>
 </div>
-{{!--
-
-<ul id="recommendations">
-    <h3>Recommendations</h3>
-</ul> --}}
 <footer id="footer">
     <div class="container">
         <div class="row">

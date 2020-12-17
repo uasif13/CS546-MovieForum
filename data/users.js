@@ -79,9 +79,9 @@ module.exports = {
     }
 
     const updateUser = {
-      firstname: newfirstname,
-      lastname: newlastname,
-      username: newusername,
+      firstName: newfirstname,
+      lastName: newlastname,
+      userName: newusername,
       email: newemail,
     };
     const updatedInfo = await userCollection.updateOne(

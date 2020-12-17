@@ -25,15 +25,14 @@ $(document).ready(function () {
           "/recommendations",
       })
         .then(function (recs) {
-          console.log(recs);
           $.each(recs.results, function (i, data) {
             $("#recommendations").append("<li>" + data.title + "</a></li");
           });
         })
         .then(function () {
-          $("#reccomendations").css({ display: "block" });
+          $("#hideLink").css({ display: "block" });
+          $("#recomendations").css({ display: "block" });
           $("#rec").css({ display: "none" });
-          $("#postLink").css({ display: "block" });
           $("#recTitle").css({ display: "block" });
         });
     });

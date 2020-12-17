@@ -10,6 +10,7 @@ function sProvided(param, paramName) {
   }
 }
 function aProvided(param, paramName) {
+    console.log(Array.isArray(param))
   if (!Array.isArray(param)) {
     throw `Invalid post ${paramName} since ${paramName} is not an array`;
   }
@@ -25,10 +26,26 @@ async function errorHandlingCreatePost(movieId, userId, title, description, tags
     } catch (e) {
         throw e;
     }
-    sProvided(title, "title")
-    sProvided(description, "description")
-    aProvided(tags, "Tags")
-    sProvided(image, "image")
+    try {
+        sProvided(title, "title")
+    } catch(e) {
+        throw e;
+    }
+    try {
+        sProvided(description, "description")
+    } catch(e) {
+        throw e;
+    }
+    try {
+        aProvided(tags, "tags")
+    } catch(e) {
+        throw e;
+    }
+    try {
+        sProvided(images, "images")
+    } catch(e) {
+        throw e;
+    }
 }
 module.exports = {
     async createPost(movieId, userId, title,description, tags, image = 'no_image.jpg') {

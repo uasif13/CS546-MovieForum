@@ -12,6 +12,8 @@ module.exports = {
     async createMovie(title, description, genres, budget, image = 'no_image.jpg') {
         sProvided(title, "title")       
         sProvided(description, "description")       
+        console.log(genres)
+        console.log(Array.isArray(genres))
         if (!Array.isArray(genres)) throw "Genres is not an array"
         sProvided(budget, "budget")
         // The rating is represented as [avg, count].

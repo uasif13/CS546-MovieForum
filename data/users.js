@@ -57,4 +57,42 @@ module.exports = {
     const allUsers = await userCollection.find({}).toArray();
     return allUsers;
   },
+  async updateUser(id,newfirstname,newlastname,newusername,newemail){
+    if(!id){
+      throw 'You must provide an ID'
+    }
+    if (!newfirstName && typeof newfirstName != "string") {
+      throw "Invalid First Name";
+    }
+    if (!newlastName && typeof newlastName != "string") {
+      throw "Invalid last Name";
+    }
+    const userCollection = await users();
+    if (!newusername && typeof newusername != "string") {
+      throw "Invalid UserName";
+    }
+    if (await userCollection.findOne({ newusername: newusername })) {
+      throw "username is already taken";
+    }
+    if (!newemail && emailIsValid(newemail)) {
+      throw "Invalid First Name";
+    }
+
+    const userCollection = await users();
+    const updateUser = {
+      firstname : newfirstname,
+      lastname : newlastname,
+      username : newusername,
+      email : newemail,
+    }
+    const updatedInfo = await userCollection.updateOne({_id:ObjectID(id)},{$set : updateUser});
+    if(updatedInfo.modifiedCount === 0){
+      throw `Could not update user`
+    }
+    else {
+      return await this.getUserByID(id);
+    }
+  
+  }
+
 };

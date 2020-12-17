@@ -36,14 +36,12 @@
             </div>
         </div>
     </div>
-
 </nav>
 
 <div class="container">
     <div class="row">
         <div class="col-md-2">
-            <a href="/posts/edit/{{post._id}}"><button>Edit Post</button></a>
-            <a href="/posts/delete/{{post._id}}"><button>Delete Post</button></a>
+
         </div>
         <div class="col-md-6">
             <div class="post">
@@ -55,20 +53,7 @@
                 <p>{{post.postDislikes}}</p>
                 <div><img alt={{post.postTitle}} src={{post.postImage}}></div>
             </div>
-
             <div>
-                <div>
-                    {{#each comments}}
-                    <div class="container">
-                        <div class="col-md">
-                            <div class="commentClass">
-                                <h6>{{this.userName}}</h6>
-                                <p>{{this.body}}</p>
-                            </div>
-                        </div>
-                    </div>
-                    {{/each}}
-                </div>
 
                 <form action="/comments" method="POST" class="createComment">
                     <label id="titleLabel">
@@ -80,13 +65,8 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="movies">
-                <h5>{{movie.title}}</h5>
-                <div><img id="postPageImg" src={{movie.image}} alt={{movie.title}}></div>
-                <div>
-                    <p>{{movie.description}}</p>
-                </div>
-            </div>
+
         </div>
     </div>
+</div>
 </div>

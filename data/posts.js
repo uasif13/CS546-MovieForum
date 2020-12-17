@@ -149,17 +149,7 @@ module.exports = {
     const post = await this.getPost(parsedId);
     const title = post.title;
     const postCollection = await posts();
-    //console.log(!(Array.isArray(post.postReplies) && post.postReplies.length));
-    if (Array.isArray(post.postReplies) && post.postReplies.length) {
-      console.log("deleting comments");
-      const commentDeletetionInfo = await commentMethods.deleteAllCommentsOfPost(
-        postId
-      );
-      if (commentDeletetionInfo.deletedCount === 0) {
-        throw "Could not remove the post";
-      }
-    }
-    console.log("deleling post");
+    //console.log("deleling post");
     const deletionInfo = await postCollection.removeOne({ _id: parsedId });
     if (deletionInfo.deletedCount === 0) {
       throw "Could not remove the post";

@@ -144,22 +144,27 @@ router.get("/delete/:id", async (req, res) => {
 
   if (post.postuserId === userID) {
     try {
-      console.log("calling remove data");
-      const deletedInfo = await postsData.removePost(postID);
+      //console.log("calling remove data");
+      let post = await postsData.getPost(postID);
+      let commentsList = post.postReplies;
+      if (Array.isArray(commentsList) && commentsList.length) {
+        await commentsData.deleteAllCommentsOfPost(postID);
+      }
+      await postsData.removePost(postID);
+      // const postsList = await postsData.getAllPosts();
+      // postsList.sort((a, b) => (a.postLikes > b.postLikes ? 1 : -1));
     } catch (e) {
-      console.log("inside here");
-      res.redirect(`/`);
+      // console.log("inside here");
+      // const postsList = await postsData.getAllPosts();
+      // postsList.sort((a, b) => (a.postLikes > b.postLikes ? 1 : -1));
+      res.redirect("/");
     }
-    res.redirect(`/`);
+    res.redirect("/");
   } else {
-    res.redirect(`/`);
+    // const postsList = await postsData.getAllPosts();
+    // postsList.sort((a, b) => (a.postLikes > b.postLikes ? 1 : -1));
+    res.redirect("/");
   }
 });
-
-// router.get("edit/:id", async (req, res) => {
-//   let postID = req.params.id;
-//   const post = await postsData.getPost(postID);
-//   res.render("/partials/editPage", { post: post });
-// });
 
 module.exports = router;

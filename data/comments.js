@@ -18,6 +18,13 @@ function removeArrayElement(arr, commentID) {
   return arr;
 }
 
+function aProvided(param, paramName) {
+  console.log(Array.isArray(param));
+  if (!Array.isArray(param)) {
+    throw `Invalid post ${paramName} since ${paramName} is not an array`;
+  }
+}
+
 module.exports = {
   async createComment(body, postId, userId) {
     let user = {};

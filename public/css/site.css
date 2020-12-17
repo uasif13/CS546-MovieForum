@@ -22,7 +22,7 @@ body {
 }
 
 .navBar {
-  background-color: #A9A9A9;
+  background-color: #a9a9a9;
 }
 
 #footer {
@@ -52,10 +52,40 @@ body {
 
 #footer {
   width: 100%;
-  position:absolute;
+  position: absolute;
   bottom: 0;
 }
 
 #footerLink {
-  color: #2B2D2F;
+  color: #2b2d2f;
+}
+
+.card {
+  padding: 10px;
+  margin: 5px;
+}
+
+.commentName {
+  font-weight: bold;
+}
+
+.postImg {
+  text-align: center;
+}
+
+.movieCard {
+  text-align: center;
+}
+
+.btn-secondary {
+  margin: 5px;
+}
+
+.commentCard {
+  font-size: smaller;
+}
+
+.likes {
+  text-align: right;
+  font-size: xx-small;
 }

@@ -37,17 +37,35 @@
         </div>
     </div>
 </nav>
-<h1>trending page</h1>
+<h1 style="text-align: center;">See what's trending!</h1>
 <ul class="posts">
     {{#each posts}}
-    <li>
+    {{!-- <li>
         <a href="/posts/{{this._id}}">{{this.postTitle}}</a>
         <ul>
             <li>
                 {{this.postBody}}
             </li>
         </ul>
-    </li>
+    </li> --}}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="card">
+                    <li>
+                        <a href="/posts/{{this._id}}">{{this.postTitle}}</a>
+                        <ul>
+                            <li>
+                                {{this.postBody}}
+                            </li>
+                        </ul>
+                    </li>
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </div>
     {{/each}}
 </ul>
 {{!-- <div id="movie"> --}}

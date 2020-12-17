@@ -135,25 +135,36 @@ router.post("/", async (req, res) => {
   }
 });
 
-// router.get("/delete/:id", async (req, res) => {
-//   let postID = req.params.id;
-//   const post = await postsData.getPost(postID);
-//   if (post.postuserId === req.session.user._id) {
-//     try {
-//       const deletedInfo = await postsData.removePost(postID);
-//     } catch (e) {
-//       res.redirect(`/posts/${req.params.id}`, {
-//         errorMessage: "Post could not be deleted!",
-//       });
-//     }
-//     res.redirect("/", {
-//       successMessage: "Post deleted Successfully!",
-//     });
-//   } else {
-//     res.redirect(`/posts/${req.params.id}`, {
-//       errorMessage: "Unauthorized used! Cannot delete this post!",
-//     });
-//   }
-// });
+router.get("/delete/:id", async (req, res) => {
+  let postID = req.params.id;
+  const post = await postsData.getPost(postID);
+  if (post.postuserId === req.session.user._id) {
+    try {
+      const deletedInfo = await postsData.removePost(postID);
+    } catch (e) {
+      res.redirect(`/posts/${req.params.id}`, {
+        errorMessage: "Post could not be deleted!",
+      });
+    }
+    res.redirect("/", {
+      successMessage: "Post deleted Successfully!",
+    });
+  } else {
+    res.redirect(`/posts/${req.params.id}`, {
+      errorMessage: "Unauthorized used! Cannot delete this post!",
+    });
+  }
+});
+
+router.get("edit/:id", async (rea, res) => {
+  let postID = req.params.id;
+  let updatedPost = req.body;
+  try {
+    const editedPost = await postsData.updatedPost(postID, updatedPost);
+  } catch (e) {
+    res.redirect(`/posts/${postID}`, { errorMessage: e });
+  }
+  res.redirect(`/posts/${postID}`, { successMessage: "Updated successful!" });
+});
 
 module.exports = router;

@@ -38,7 +38,8 @@ router.get("/", async (req, res) => {
   } catch (e) {
     // res.status(500).send(e)
     res.redirect("/");
-
+  }
+});
 router.get("/:id", async (req, res) => {
   try {
     if (!req.session) {

@@ -51,6 +51,7 @@ router.post('/', async (req, res) => {
         throw "No body was sent with POST request"
         }
         let data = req.body;
+        console.log(data)
         let addedMovie = {};
         if (req.body.title && req.body.description && req.body.genres && req.body.image && req.body.budget) {
             addedMovie = await moviesData.createMovie(xss(data.title), xss(data.description), xss(data.genres), xss(data.budget), xss(data.image))

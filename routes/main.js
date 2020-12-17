@@ -112,7 +112,7 @@ router.get("/logout", async (req, res) => {
     if (!req.session.user) {
         throw "You must be logged in before you can make a search"
     }
-    res.session.destroy();
+    req.session.destroy();
     res.render("partials/landing",{title: "Join the conversation at FilmCult!"});
   } catch(e) {
     res.status(500).send(e)

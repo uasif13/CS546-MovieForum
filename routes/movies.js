@@ -59,7 +59,23 @@ router.get("/:id", async (req, res) => {
     });
   } catch (e) {
     res.status(500).send(e);
-
+  }
+});
+router.get("/detail/:id", async (req, res) => {
+  try {
+    if (!req.session) {
+      throw "There is no session";
+    }
+    if (!req.session.user) {
+      throw "You must be logged in before you can make a search";
+    }
+    let movie = await moviesData.getMovie(req.params.id);
+    res.render("partials/showDetails", {
+      title: "Show Details",
+      show: movie,
+    });
+  } catch (e) {
+    res.status(500).send(e);
   }
 });
 // Movie is created from user input

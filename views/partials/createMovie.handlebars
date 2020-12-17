@@ -41,7 +41,7 @@
     <div class="row">
         <h1>Create a movie</h1>
     </div>
-    <form action="/movies" method="POST" class="movieForm">
+    <form action="/movies" method="POST" id="movieForm">
         <div class="mb-3">
             <label id="labelMovieTitle" class="form-label">
                 Title of Movie
@@ -70,8 +70,8 @@
         <div class="mb-3">
             <label id="labelMovieGenres" class="form-label">
                 Select Movie Genres
-                <select class="form-select" multiple name="genres" aria-label="genres">
-                    <option selected>Choose the genres of the movie</option>
+                <select class="form-select" multiple name="genres" id="movieGenresInput" aria-label="genres">
+                    <option selected disabled>Choose the genres of the movie</option>
                     <option value="Adventure">Adventure</option>
                     <option value="Action">Action</option>
                     <option value="Drama">Drama</option>
@@ -90,6 +90,11 @@
         <button type="submit" class="btn btn-primary">Create Movie</button>
     </form>
 </div>
+<div>
+    <ul id="errorStatements"></ul>
+    <p id="successStatements">Movie has been successfully added to database. Navigate with links above</p>
+</div>
+
 <footer class="bg-light" id="footer">
     <div class="container">
         <div class="row">

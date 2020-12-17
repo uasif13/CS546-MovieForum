@@ -41,7 +41,7 @@
     <div class="row">
         <h1>Create a post</h1>
     </div>
-    <form autocomplete="off" action="/posts" method="POST" class="postForm">
+    <form autocomplete="off" action="/posts" method="POST" id="postForm">
         <div class="mb-3">
             <div class="autocomplete">
                 <label class="form-label" id="postMovieLabel">
@@ -82,7 +82,7 @@
         <div class="mb-3">
             <label id="labelMovieGenres" class="form-label">
                 Select Post Tags (Hold CTRL to select multiple tags)
-                <select class="form-select" multiple name="tags" aria-label="tags">
+                <select class="form-select" multiple name="tags" aria-label="tags" id="postTagsInput">
                     <option selected>Choose tags for your posts</option>
                     <option value="News">News</option>
                     <option value="Discussion">Discussion</option>

@@ -85,8 +85,11 @@ module.exports = {
     const parsedId = ObjectID(movieId);
     const parsed = await movieMethods.getMovie(parsedId);
     const allPosts = await this.getAllPosts();
-    const postsforMovie = allPosts.filter(
-      (post) => post.postMovieId === parsed._id
+
+    
+
+    const postsforMovie = allPosts.filter((post) =>
+      post.postMovieId.equals(parsed._id)
     );
     return postsforMovie;
   },
@@ -138,6 +141,7 @@ module.exports = {
     const post = await this.getPost(parsedId);
     const title = post.title;
     const postCollection = await posts();
+
     if (!(Array.isArray(post.postReplies) && post.postReplies.length)) {
       const commentDeletetionInfo = await commentMethods.deleteAllCommentsOfPost(
         postId
@@ -146,6 +150,7 @@ module.exports = {
         throw "Could not remove the post";
       }
     }
+
     const deletionInfo = await postCollection.removeOne({ _id: parsedId });
     if (deletionInfo.deletedCount === 0) {
       throw "Could not remove the post";

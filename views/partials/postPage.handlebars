@@ -53,7 +53,9 @@
         <div class="col-md-6">
             <div class="post">
                 <h2>{{post.postTitle}}</h2>
-                <h6>By <a href="/users">user</a> on movie <a href="/movie">{{movie.title}}</a></h6>
+                <h6>By <a href="/users">user</a> on movie <a
+                        href="/movies/detail/{{post.postMovieId}}">{{movie.title}}</a>
+                </h6>
                 <h5></h5>
                 <p class="postBody">{{post.postBody}}</p>
                 <p>{{post.postLikes}}</p>
@@ -86,10 +88,11 @@
         </div>
         <div class="col-md-4">
             <div class="movies">
-                <h5>{{movie.title}}</h5>
+                <h5><a href="/movies/detail/{{post.postMovieId}}">{{movie.title}}</a></h5>
                 <div><img id="postPageImg" src={{movie.image}} alt={{movie.title}}></div>
                 <div>
                     <p>{{movie.description}}</p>
+                    <a href="/movies/{{post.postMovieId}}">See all Posts about {{movie.title}} here</a>
                 </div>
             </div>
         </div>

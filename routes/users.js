@@ -20,56 +20,56 @@ const userMethods = require('../data/users');
 //     // Need to get REcommendations of users
 //   res.render("partials/userProfile.handlebars", {title: `${user.username}'s Profile`, user: user})
 //   } catch(e) {
-//     res.redirect("partials/landing", {title: "Join the conversation at FilmCult today!"}) 
+//     res.redirect("partials/landing", {title: "Join the conversation at FilmCult today!"})
 //   }
 // })
 
-router.get('/update', (req,res,next) => {
-    if(!req.params) {
-        return next();
-    }
+router.get("/update", (req, res, next) => {
+  if (!req.params) {
+    return next();
+  }
 
-    const users = req.app.locals.users;
-    const _id = ObjectID(req.session.passport.user);
-    
-    users.findOne({_id} , (err,results) => {
-        if (err) {
-            throw err;
-        }
-        res.render('account', { ...results});
-    });
+  const users = req.app.locals.users;
+  const _id = ObjectID(req.session.passport.user);
+
+  users.findOne({ _id }, (err, results) => {
+    if (err) {
+      throw err;
+    }
+    res.render("account", { ...results });
+  });
 });
 
-router.get('/' , (req, res,next) => {
-    const users = req.app.locals.users;
-    const username = req.params.username;
-    console.log(req.session.userId);
-    const userId = req.session.user._id;
-    try{
-        let user =  userMethods.getUserByID(userId);
-        res.render('partials/userProfile', {user:user});
-
-    }
-    catch(e){
-
-    }
+router.get("/", (req, res, next) => {
+  const users = req.app.locals.users;
+  const username = req.params.username;
+  console.log(req.session.userId);
+  const userId = req.session.user._id;
+  try {
+    let user = userMethods.getUserByID(userId);
+    res.render("partials/userProfile", { user: user });
+  } catch (e) {}
 });
 
-router.post('/', (req, res, next) => {
-    if(!req.params){
-        return next();
-    }
+router.post("/", (req, res, next) => {
+  if (!req.params) {
+    return next();
+  }
 
-    const users = req.app.locals.users;
-    const { firstname,lastname,username,email} = req.body;
-    const _id = ObjectID(req.session.passport.user);
-    users.updateOne({ _id }, { $set: { firstname,lastname,username,email } }, (err) => {
-        if (err) {
-          throw err;
-        }
-        
-        res.redirect('/users');
-      });
+  const users = req.app.locals.users;
+  const { firstname, lastname, username, email } = req.body;
+  const _id = ObjectID(req.session.passport.user);
+  users.updateOne(
+    { _id },
+    { $set: { firstname, lastname, username, email } },
+    (err) => {
+      if (err) {
+        throw err;
+      }
+
+      res.redirect("/users");
+    }
+  );
 });
 
 module.exports = router;

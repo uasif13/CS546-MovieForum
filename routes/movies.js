@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const data = require("../data/index");
 const moviesData = data.movies;
+const postsData = data.posts;
 const axios = require("axios");
 const movies = require("../data/movies");
 const API_KEY = "2c5709ff90e8aeb0f12febf13b682fa8";
@@ -55,6 +56,23 @@ router.get("/:id", async (req, res) => {
       title: movie.title,
       movie: movie,
       posts: postsList,
+    });
+  } catch (e) {
+    res.status(500).send(e);
+  }
+});
+router.get("/detail/:id", async (req, res) => {
+  try {
+    if (!req.session) {
+      throw "There is no session";
+    }
+    if (!req.session.user) {
+      throw "You must be logged in before you can make a search";
+    }
+    let movie = await moviesData.getMovie(req.params.id);
+    res.render("partials/showDetails", {
+      title: "Show Details",
+      show: movie,
     });
   } catch (e) {
     res.status(500).send(e);

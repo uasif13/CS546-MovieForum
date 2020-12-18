@@ -24,7 +24,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/users">View Profile</a>
                 </li>
-                
+
             </ul>
             <div class="d-flex" href="/user">
                 <li class="nav-item dropdown">
@@ -42,8 +42,10 @@
     </div>
 </nav>
 <h2>EDIT PROFILE</h2>
-
-<form action="/users/" method="POST">
+{{#if error}}
+<p>{{error}}</p>
+{{/if}}
+<form action="/user" method="POST">
     <div class="form-group">
         <label for="firstName">First Name: </label>
         <input type="text" id="firstName" name="firstName">
@@ -60,12 +62,7 @@
         <label for="email">Email: </label>
         <input type="text" id="email" name="email">
     </div>
-    <div class="form-group">
-        <label for="name">Name: </label>
-        <input type="text" class="form-control" name="name" id="name">
-    </div>
     <button class="btn btn-primary">Update</button>
 
 
 </form>
-

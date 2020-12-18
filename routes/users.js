@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 const ObjectID = require("mongodb").ObjectID;
 const userMethods = require("../data/users");
+const xss = require("xss");
 
 router.get("/update", async (req, res) => {
   if (!req.params) {
@@ -42,17 +43,20 @@ router.post("/", async (req, res) => {
       throw "No body was sent with POST request";
     }
     const data = req.body;
-    //console.log(data)
-    errorHandlePostCreation(data, req.session.user._id);
-    let updateuser = await userMethods.updateUser(
-      xss(data.firstname),
-      xss(req.session.user._id),
-      xss(data.lastname),
-      xss(data.email),
-      xss(data.password)
-    );
+    try {
+      await userMethods.updateUser(
+        req.session.user._id,
+        data.firstname,
+        data.lastname,
+        data.username,
+        data.email
+      );
+    } catch (e) {
+      throw e;
+    }
+    res.redirect("/");
   } catch (e) {
-    res.status(500).send(e);
+    res.status(400).render("partials/account", { error: e });
   }
 });
 

@@ -28,7 +28,7 @@ router.post("/:id", async (req, res) => {
     postTags: editedPost.tags,
     //postImage: `../../public/assets/${editedPost.image}`,
   };
-  console.log(parsingPostData);
+  //console.log(parsingPostData);
   try {
     let postEdited = await postsData.editPost(
       editedPost.postID,

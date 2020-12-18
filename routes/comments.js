@@ -4,6 +4,7 @@ const data = require("../data/index");
 const movies = data.movies;
 const postsData = data.posts;
 const commentsData = data.comments;
+const spaceRegex = /^\s*$/;
 
 router.post("/", async (req, res) => {
   // console.log(req.body);
@@ -17,6 +18,9 @@ router.post("/", async (req, res) => {
     }
     if (!req.body) {
       throw "No body was sent with POST request";
+    }
+    if (req.body.commentBody === "" || spaceRegex.test(req.body.commentBody)) {
+      res.redirect(`/posts/${req.body.postID}`);
     }
     const newComment = await commentsData.createComment(
       req.body.commentBody,

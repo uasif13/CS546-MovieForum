@@ -3,7 +3,7 @@ var router = express.Router();
 const ObjectID = require("mongodb").ObjectID;
 const userMethods = require("../data/users");
 
-router.get("/update", (req, res, next) => {
+router.get("/update", async (req, res) => {
   if (!req.params) {
     return next();
   }

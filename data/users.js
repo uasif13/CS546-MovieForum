@@ -35,7 +35,7 @@ module.exports = {
       email: email,
       password: hashedPass,
       postsArray: [],
-      moviesRated: {}
+      moviesRated: {},
     };
     const insertInfo = await userCollection.insertOne(user);
     if (insertInfo.insertedCount === 0) {
@@ -57,27 +57,26 @@ module.exports = {
     const allUsers = await userCollection.find({}).toArray();
     return allUsers;
   },
-  async updateUser(id,newfirstname,newlastname,newusername,newemail){
-    if(!id){
-      throw 'You must provide an ID'
+  async updateUser(id, newfirstname, newlastname, newusername, newemail) {
+    if (!id) {
+      throw "You must provide an ID";
     }
-    if (!newfirstName && typeof newfirstName != "string") {
+    if (!newfirstname && typeof newfirstname != "string") {
       throw "Invalid First Name";
     }
-    if (!newlastName && typeof newlastName != "string") {
+    if (!newlastname && typeof newlastname != "string") {
       throw "Invalid last Name";
     }
     const userCollection = await users();
     if (!newusername && typeof newusername != "string") {
       throw "Invalid UserName";
     }
-    if (await userCollection.findOne({ newusername: newusername })) {
+    if (await userCollection.findOne({ userName: newusername })) {
       throw "username is already taken";
     }
     if (!newemail && emailIsValid(newemail)) {
       throw "Invalid First Name";
     }
-
     const updateUser = {
       firstName: newfirstname,
       lastName: newlastname,

@@ -35,7 +35,7 @@ module.exports = {
       email: email,
       password: hashedPass,
       postsArray: [],
-      moviesRated: {}
+      moviesRated: {},
     };
     const insertInfo = await userCollection.insertOne(user);
     if (insertInfo.insertedCount === 0) {
@@ -57,9 +57,9 @@ module.exports = {
     const allUsers = await userCollection.find({}).toArray();
     return allUsers;
   },
-  async updateUser(id,newfirstname,newlastname,newusername,newemail){
-    if(!id){
-      throw 'You must provide an ID'
+  async updateUser(id, newfirstname, newlastname, newusername, newemail) {
+    if (!id) {
+      throw "You must provide an ID";
     }
     if (!newfirstName && typeof newfirstName != "string") {
       throw "Invalid First Name";

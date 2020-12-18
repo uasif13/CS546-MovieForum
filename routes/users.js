@@ -43,18 +43,19 @@ router.post("/", async (req, res) => {
       throw "No body was sent with POST request";
     }
     const data = req.body;
+
     try {
       await userMethods.updateUser(
         req.session.user._id,
-        data.firstname,
-        data.lastname,
-        data.username,
+        data.firstName,
+        data.lastName,
+        data.userName,
         data.email
       );
     } catch (e) {
       throw e;
     }
-    res.redirect("/");
+    res.redirect("/user");
   } catch (e) {
     res.status(400).render("partials/account", { error: e });
   }

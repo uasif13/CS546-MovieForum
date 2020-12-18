@@ -7,23 +7,23 @@ function emailIsValid(email) {
 }
 module.exports = {
   async createUser(firstName, lastName, username, email, password) {
-    if (!firstName && typeof firstName != "string") {
+    if (!firstName || typeof firstName != "string") {
       throw "Invalid First Name";
     }
-    if (!lastName && typeof lastName != "string") {
+    if (!lastName || typeof lastName != "string") {
       throw "Invalid last Name";
     }
     const userCollection = await users();
-    if (!username && typeof username != "string") {
+    if (!username || typeof username != "string") {
       throw "Invalid UserName";
     }
     if (await userCollection.findOne({ username: username })) {
       throw "username is already taken";
     }
-    if (!email && emailIsValid(email)) {
-      throw "Invalid First Name";
+    if (!email || !emailIsValid(email)) {
+      throw "Invalid email";
     }
-    if (!password && typeof password != "string") {
+    if (!password || typeof password != "string") {
       throw "Invalid password";
     }
     const hashedPass = await bcrypt.hash(password, 16);
@@ -58,39 +58,43 @@ module.exports = {
     return allUsers;
   },
   async updateUser(id, newfirstname, newlastname, newusername, newemail) {
-    if (!id) {
-      throw "You must provide an ID";
-    }
-    if (!newfirstname && typeof newfirstname != "string") {
-      throw "Invalid First Name";
-    }
-    if (!newlastname && typeof newlastname != "string") {
-      throw "Invalid last Name";
-    }
-    const userCollection = await users();
-    if (!newusername && typeof newusername != "string") {
-      throw "Invalid UserName";
-    }
-    if (await userCollection.findOne({ userName: newusername })) {
-      throw "username is already taken";
-    }
-    if (!newemail && emailIsValid(newemail)) {
-      throw "Invalid First Name";
-    }
-    const updateUser = {
-      firstName: newfirstname,
-      lastName: newlastname,
-      userName: newusername,
-      email: newemail,
-    };
-    const updatedInfo = await userCollection.updateOne(
-      { _id: ObjectID(id) },
-      { $set: updateUser }
-    );
-    if (updatedInfo.modifiedCount === 0) {
-      throw `Could not update user`;
-    } else {
-      return await this.getUserByID(id);
+    try {
+      if (!id) {
+        throw "You must provide an ID";
+      }
+      if (!newfirstname || typeof newfirstname != "string") {
+        throw "Invalid First Name";
+      }
+      if (!newlastname || typeof newlastname != "string") {
+        throw "Invalid last Name";
+      }
+      const userCollection = await users();
+      if (!newusername || typeof newusername != "string") {
+        throw "Invalid UserName";
+      }
+      if (await userCollection.findOne({ userName: newusername })) {
+        throw "username is already taken";
+      }
+      if (!newemail || !emailIsValid(newemail)) {
+        throw "Invalid email";
+      }
+      const updateUser = {
+        firstName: newfirstname,
+        lastName: newlastname,
+        userName: newusername,
+        email: newemail,
+      };
+      const updatedInfo = await userCollection.updateOne(
+        { _id: ObjectID(id) },
+        { $set: updateUser }
+      );
+      if (updatedInfo.modifiedCount === 0) {
+        throw `Could not update user`;
+      } else {
+        return await this.getUserByID(id);
+      }
+    } catch (e) {
+      throw e;
     }
   },
 };

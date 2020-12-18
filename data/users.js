@@ -7,41 +7,45 @@ function emailIsValid(email) {
 }
 module.exports = {
   async createUser(firstName, lastName, username, email, password) {
-    if (!firstName || typeof firstName != "string") {
-      throw "Invalid First Name";
+    try {
+      if (!firstName || typeof firstName != "string") {
+        throw "Invalid First Name";
+      }
+      if (!lastName || typeof lastName != "string") {
+        throw "Invalid last Name";
+      }
+      const userCollection = await users();
+      if (!username || typeof username != "string") {
+        throw "Invalid UserName";
+      }
+      if (await userCollection.findOne({ username: username })) {
+        throw "username is already taken";
+      }
+      if (!email || !emailIsValid(email)) {
+        throw "Invalid email";
+      }
+      if (!password || typeof password != "string") {
+        throw "Invalid password";
+      }
+      const hashedPass = await bcrypt.hash(password, 16);
+      let user = {
+        _id: ObjectID(),
+        firstName: firstName,
+        lastName: lastName,
+        username: username,
+        email: email,
+        password: hashedPass,
+        postsArray: [],
+        moviesRated: {},
+      };
+      const insertInfo = await userCollection.insertOne(user);
+      if (insertInfo.insertedCount === 0) {
+        throw "Could not enter user information";
+      }
+      return user;
+    } catch (e) {
+      throw e;
     }
-    if (!lastName || typeof lastName != "string") {
-      throw "Invalid last Name";
-    }
-    const userCollection = await users();
-    if (!username || typeof username != "string") {
-      throw "Invalid UserName";
-    }
-    if (await userCollection.findOne({ username: username })) {
-      throw "username is already taken";
-    }
-    if (!email || !emailIsValid(email)) {
-      throw "Invalid email";
-    }
-    if (!password || typeof password != "string") {
-      throw "Invalid password";
-    }
-    const hashedPass = await bcrypt.hash(password, 16);
-    let user = {
-      _id: ObjectID(),
-      firstName: firstName,
-      lastName: lastName,
-      username: username,
-      email: email,
-      password: hashedPass,
-      postsArray: [],
-      moviesRated: {},
-    };
-    const insertInfo = await userCollection.insertOne(user);
-    if (insertInfo.insertedCount === 0) {
-      throw "Could not enter user information";
-    }
-    return user;
   },
   async getUserByID(id) {
     var oID = ObjectID(id);

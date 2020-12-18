@@ -60,46 +60,50 @@ router.get("/:id", async (req, res) => {
 
 async function errorHandlePostCreation(data, userId) {
   // A post must have all the components below
-  if (
-    !data.movie ||
-    !userId ||
-    !data.title ||
-    !data.description ||
-    !data.tags ||
-    !data.image
-  ) {
-    throw "Missing Component for Post";
-  }
-  // A post must be about a movie in our movieCollection
   try {
-    await postsData.getPost(ObjectID(xss(data.movie)));
+    if (
+      !data.movie ||
+      !userId ||
+      !data.title ||
+      !data.description ||
+      !data.tags ||
+      !data.image
+    ) {
+      throw "Missing Component for Post";
+    }
+    // A post must be about a movie in our movieCollection
+    try {
+      await postsData.getPost(ObjectID(xss(data.movie)));
+    } catch (e) {
+      throw "Could not find the movie in the database";
+    }
+    // A post must be written by a user in our UserCollection
+    try {
+      await userData.getUserByID(ObjectID(xss(userId)));
+    } catch (e) {
+      throw "Could not find the user in the database";
+    }
+    // title must be string
+    if (typeof data.title !== "string" || spaceRegex.test(data.title)) {
+      throw "Post title must be a string";
+    }
+    // description must be string
+    if (
+      typeof data.description !== "string" ||
+      spaceRegex.test(data.description)
+    ) {
+      throw "Post description must be a string";
+    }
+    // tags must be an array
+    if (!Array.isArray(data.tags)) {
+      throw "Tags must be an array";
+    }
+    // images must be an array
+    if (!Array.isArray(data.image)) {
+      throw "images must be an array";
+    }
   } catch (e) {
-    throw "Could not find the movie in the database";
-  }
-  // A post must be written by a user in our UserCollection
-  try {
-    await userData.getUserByID(ObjectID(xss(userId)));
-  } catch (e) {
-    throw "Could not find the user in the database";
-  }
-  // title must be string
-  if (typeof data.title !== "string" || spaceRegex.test(data.title)) {
-    throw "Post title must be a string";
-  }
-  // description must be string
-  if (
-    typeof data.description !== "string" ||
-    spaceRegex.test(data.description)
-  ) {
-    throw "Post description must be a string";
-  }
-  // tags must be an array
-  if (!Array.isArray(data.tags)) {
-    throw "Tags must be an array";
-  }
-  // images must be an array
-  if (!Array.isArray(data.image)) {
-    throw "images must be an array";
+    throw e;
   }
 }
 // Post is created from user input
@@ -116,7 +120,7 @@ router.post("/", async (req, res) => {
     }
     const data = req.body;
     console.log(data);
-    errorHandlePostCreation(data, req.session.user._id);
+    await errorHandlePostCreation(data, req.session.user._id);
     let addedPost = await postsData.createPost(
       xss(data.movie),
       xss(req.session.user._id),
@@ -133,7 +137,7 @@ router.post("/", async (req, res) => {
       allComments: [],
     });
   } catch (e) {
-    res.status(500).send(e);
+    res.status(400).render("partials/createPost", { error: e });
   }
 });
 

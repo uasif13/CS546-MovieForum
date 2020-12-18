@@ -41,20 +41,20 @@ async function main() {
   );
   const m1 = await moviesData.createMovie(
     "Mulan",
-    "this is the description for Mulan",
+    "Mulan is a girl, the only child of her honored family. When the Huns invade China, one man from every family is called to arms. Mulan's father, who has an old wound and cannot walk properly, decides to fight for his country and the honor of his family though it is clear that he will not survive an enemy encounter.",
     ["Romance"],
     "2,000,000"
   );
   const m2 = await moviesData.createMovie(
     "fatman",
-    "this is the description for fatman",
+    " A rowdy, unorthodox Santa Claus is fighting to save his declining business. Meanwhile, Billy, a neglected and precocious 12 year old, hires a hit man to kill Santa after receiving a lump of coal in his stocking.",
     ["Comedy"],
     "1,000,000"
   );
   const m3 = await moviesData.createMovie(
     "Avengers: Endgame",
     "Adrift in space with no food or water, Tony Stark sends a message to Pepper Potts as his oxygen supply starts to dwindle. Meanwhile, the remaining Avengers -- Thor, Black Widow, Captain America and Bruce Banner -- must figure out a way to bring back their vanquished allies for an epic showdown with Thanos -- the evil demigod who decimated the planet and the universe.",
-    ["Action","Science Fiction"],
+    ["Action", "Science Fiction"],
     "356,000,000",
     "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRZlKhaFcACmjA1x3A5Ob3Kvbt7Wa0r8CJoCM9U7u05B1mtbhJr"
   );
@@ -70,15 +70,22 @@ async function main() {
     "The powerful but arrogant god Thor is cast out of Asgard to live amongst humans in Midgard (Earth), where he soon becomes one of their finest defenders.",
     ["Action", "Fantasy"],
     "150,000,000",
-    "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSXqpi4z8LN3B88RKYW5bzrm6BNZzS4Rn-5FfN83vZLQkvZZwOW",
-  )
+    "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSXqpi4z8LN3B88RKYW5bzrm6BNZzS4Rn-5FfN83vZLQkvZZwOW"
+  );
   const m6 = await moviesData.createMovie(
     "Ferris Bueller's Day Off",
     "Ferris Bueller (Matthew Broderick) has an uncanny skill at cutting classes and getting away with it. Intending to make one last duck-out before graduation, Ferris calls in sick, 'borrows' a Ferrari, and embarks on a one-day journey through the streets of Chicago. On Ferris' trail is high school principal Rooney (Jeffrey Jones), determined to catch him in the act.",
-    ["Comedy","Teen"],
+    ["Comedy", "Teen"],
     "5,800,000",
-    "https://images-na.ssl-images-amazon.com/images/I/91fOtWKp%2BCL._SY445_.jpg",
-  )
+    "https://images-na.ssl-images-amazon.com/images/I/91fOtWKp%2BCL._SY445_.jpg"
+  );
+  const m7 = await moviesData.createMovie(
+    "Inception",
+    "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.",
+    ["Action", "Drama"],
+    "160,000,000",
+    "inception.jpg"
+  );
   const p1 = await postsData.createPost(
     m4._id,
     u2._id,
@@ -95,6 +102,22 @@ async function main() {
     ["Question", "Discussion"],
     "https://static01.nyt.com/images/2019/10/06/arts/06jokers-ranked-ledger/06jokers-ranked-ledger-videoSixteenByNineJumbo1600.jpg"
   );
+  const p7 = await postsData.createPost(
+    m7._id,
+    u2._id,
+    "Should I watch inception",
+    "It gets good reviews",
+    ["Question", "Discussion"],
+    "inception.jpg"
+  );
+  const p111 = await postsData.createPost(
+    m7._id,
+    u2._id,
+    "Inception sucks",
+    "Never seen it",
+    ["Question", "Discussion"],
+    "https://static01.nyt.com/images/2019/10/06/arts/06jokers-ranked-ledger/06jokers-ranked-ledger-videoSixteenByNineJumbo1600.jpg"
+  );
   const p2 = await postsData.createPost(
     m5._id,
     u3._id,
@@ -102,34 +125,34 @@ async function main() {
     "We see that Hiemdall guards the rainbow bridge called the Bifrost in Thor. Everyone has to eat, so who guards the Bifrost in Heimdalls absence?",
     ["Dicussion", "Question"],
     "https://i.pinimg.com/originals/6a/f8/59/6af859c26659f156cdade03b9cca0230.jpg"
-  )
-  const p3 = await postsData.createPost( m2._id,
+  );
+  const p3 = await postsData.createPost(
+    m2._id,
     u1._id,
-    "first post!",
-    "description",
-    [],
+    "These are some interesting new christmas movies",
+    "not sure i like it",
+    []
   );
   const p4 = await postsData.createPost(
-    m1._id,
+    m2._id,
     u1._id,
-    "Second post!",
-    "description",
-    [],
+    "Best christmas movie ever!",
+    "Not",
+    []
   );
   const c1 = await commentsData.createComment(
     "I am so scared of Joker's face",
     p1._id,
-    u3._id,
-  )
+    u3._id
+  );
   const c2 = await commentsData.createComment(
     "Hmm... Not too sure",
     p2._id,
     u2._id
-  )
+  );
   console.log("Done seeding database");
   await db.serverConfig.close();
 }
 main().catch((error) => {
   console.log(error);
 });
-

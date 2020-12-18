@@ -56,7 +56,6 @@
                     <h4>{{post.postTitle}}</h4>
                     <h6>By <a href="/users">user</a> on movie <a
                             href="/movies/detail/{{post.postMovieId}}">{{movie.title}}</a>
-                        <div class="postImg"><img alt={{post.postTitle}} src={{post.postImage}}></div>
                         <hr>
                     </h6>
                     <h5></h5>
@@ -103,7 +102,7 @@
             <div class="card">
                 <div class="movieCard">
                     <h5><a href="/movies/detail/{{post.postMovieId}}">{{movie.title}}</a></h5>
-                    <div><img src={{movie.image}} alt={{movie.title}}></div>
+                    <div><img class="img-thumbnail" src={{movie.image}} alt={{movie.title}}></div>
                     <div>
                         <p>{{movie.description}}</p>
                         <a href="/movies/{{post.postMovieId}}">See all Posts about {{movie.title}}

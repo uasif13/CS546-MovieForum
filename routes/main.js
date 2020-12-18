@@ -108,7 +108,7 @@ router.post("/signup", async (req, res) => {
         xss(req.body.password)
       );
       req.session.user = user;
-      res.redirect("/");
+      res.redirect("trending");
     }
   } else {
     res.render("partials/landing", {

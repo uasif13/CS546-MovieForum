@@ -37,17 +37,7 @@
         </div>
     </div>
 </nav>
-{{!-- <p id="title">{{show.title}}</p>
-<p>{{show.description}}</p>
-<img alt={{show.title}} src="/public/assets/{{show.image}}" />
-{{#each show.genres}}
-<p>{{this}}</p>
-{{/each}}
-<a id="rec" href="/reccomendations/{{show.id}}">Liked {{show.title}}? Click here some reccomended movies!</a>
-<h3 id="recTitle">Recommendations</h3>
-<ul id="recommendations">
-</ul>
-<a href="/movies/detail/{{show._id}}" id="hideLink">Hide Recommendations</a> --}}
+
 <div class="container">
     <div class="row">
         <div class="col-md-3"></div>
@@ -59,7 +49,7 @@
                 {{#each show.genres}}
                 <p>{{this}}</p>
                 {{/each}}
-                <a id="rec" href="/reccomendations/{{show.id}}">Liked {{show.title}}? Click here some reccomended
+                <a id="rec" href="/reccomendations/{{show.id}}">Liked {{show.title}}? Click here some recommended
                     movies!</a>
                 <h3 id="recTitle">Recommendations</h3>
                 <ul id="recommendations">

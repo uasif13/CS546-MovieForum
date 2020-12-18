@@ -9,6 +9,15 @@ router.post("/", async (req, res) => {
   // console.log(req.body);
   // console.log(req.session.user._id);
   try {
+    if (!req.session) {
+      throw "There is no session";
+    }
+    if (!req.session.user) {
+      throw "You must be logged in before you can make a search";
+    }
+    if (!req.body) {
+      throw "No body was sent with POST request";
+    }
     const newComment = await commentsData.createComment(
       req.body.commentBody,
       req.body.postID,

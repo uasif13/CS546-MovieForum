@@ -43,34 +43,47 @@
     <div class="row">
         <div class="col-md-2">
             <form action="/edits/{{post._id}}" method="GET">
-                <button>Edit Post</button>
+                <button class="btn btn-secondary">Edit Post</button>
             </form>
 
             <form action="/posts/delete/{{post._id}}" method="GET">
-                <button type="submit">Delete Post</button>
+                <button class="btn btn-secondary" type="submit">Delete Post</button>
             </form>
         </div>
         <div class="col-md-6">
-            <div class="post">
-                <h2>{{post.postTitle}}</h2>
-                <h6>By <a href="/users">user</a> on movie <a
-                        href="/movies/detail/{{post.postMovieId}}">{{movie.title}}</a>
-                </h6>
-                <h5></h5>
-                <p class="postBody">{{post.postBody}}</p>
-                <p>{{post.postLikes}}</p>
-                <p>{{post.postDislikes}}</p>
-                <div><img alt={{post.postTitle}} src={{post.postImage}}></div>
+            <div class="postCard">
+                <div class="card">
+                    <h4>{{post.postTitle}}</h4>
+                    <h6>By <a href="/users">user</a> on movie <a
+                            href="/movies/detail/{{post.postMovieId}}">{{movie.title}}</a>
+                        <div class="postImg"><img alt={{post.postTitle}} src={{post.postImage}}></div>
+                        <hr>
+                    </h6>
+                    <h5></h5>
+                    <p class="postBody">{{post.postBody}}</p>
+                    <p class="likes">{{post.postLikes}} {{post.postDislikes}}</p>
+
+
+                    <span class="likebtn-wrapper" data-theme="likebtn" data-identifier="item_1"></span>
+                    <script>(function (d, e, s) {
+                            if (d.getElementById("likebtn_wjs")) return;
+                            a = d.createElement(e);
+                            m = d.getElementsByTagName(e)[0];
+                            a.async = 1; a.id = "likebtn_wjs"; a.src = s; m.parentNode.insertBefore(a, m)
+                        })(document, "script", "//w.likebtn.com/js/w/widget.js");</script>
+                </div>
             </div>
 
             <div>
                 <div>
                     {{#each comments}}
                     <div class="container">
-                        <div class="col-md">
-                            <div class="commentClass">
-                                <h6>{{this.userName}}</h6>
-                                <p>{{this.body}}</p>
+                        <div class="col-sm">
+                            <div class="commentCard">
+                                <div class="card">
+                                    <p class="commentName">{{this.userName}}</p>
+                                    <p>{{this.body}}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -82,19 +95,41 @@
                         <input type="text" name="commentBody" title="body">
                     </label>
                     <input type="hidden" name="postID" value={{post._id}} />
-                    <button type="submit">Add Comment</button>
+                    <button class="btn btn-primary" type="submit">Add Comment</button>
                 </form>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="movies">
-                <h5><a href="/movies/detail/{{post.postMovieId}}">{{movie.title}}</a></h5>
-                <div><img id="postPageImg" src={{movie.image}} alt={{movie.title}}></div>
-                <div>
-                    <p>{{movie.description}}</p>
-                    <a href="/movies/{{post.postMovieId}}">See all Posts about {{movie.title}} here</a>
+            <div class="card">
+                <div class="movieCard">
+                    <h5><a href="/movies/detail/{{post.postMovieId}}">{{movie.title}}</a></h5>
+                    <div><img src={{movie.image}} alt={{movie.title}}></div>
+                    <div>
+                        <p>{{movie.description}}</p>
+                        <a href="/movies/detail/{{post.postMovieId}}">See all Posts about {{movie.title}}
+                            here</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+{{!-- <div class="container">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="card">
+                <li>
+                    <a href="/posts/{{this._id}}">{{this.postTitle}}</a>
+                    <ul>
+                        <li>
+                            {{this.postBody}}
+                        </li>
+                    </ul>
+                </li>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div> --}}

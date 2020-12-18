@@ -138,6 +138,16 @@ router.post("/", async (req, res) => {
 });
 
 router.get("/delete/:id", async (req, res) => {
+  try {
+    if (!req.session) {
+      throw "There is no session";
+    }
+    if (!req.session.user) {
+      throw "You must be logged in before you can make a search";
+    }
+  } catch (e) {
+    res.status(500).send(e);
+  }
   let postID = req.params.id;
   let userID = req.session.user._id;
   const post = await postsData.getPost(postID);
@@ -163,7 +173,7 @@ router.get("/delete/:id", async (req, res) => {
   } else {
     // const postsList = await postsData.getAllPosts();
     // postsList.sort((a, b) => (a.postLikes > b.postLikes ? 1 : -1));
-    res.redirect("/");
+    res.render("partials/createPost");
   }
 });
 

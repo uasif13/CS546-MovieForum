@@ -87,7 +87,7 @@ module.exports = {
     const parsedId = ObjectID(movieId);
     const parsed = await movieMethods.getMovie(parsedId);
     const allPosts = await this.getAllPosts();
-    
+
     const postsforMovie = allPosts.filter((post) =>
       post.postMovieId.equals(parsed._id)
     );

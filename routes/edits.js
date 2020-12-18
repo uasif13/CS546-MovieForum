@@ -13,7 +13,11 @@ const { route } = require("./posts");
 router.get("/:id", async (req, res) => {
   let postID = req.params.id;
   const post = await postsData.getPost(postID);
-  res.render("partials/editPost", { post: post });
+  if (req.session.user._id === post.postuserId) {
+    res.render("partials/editPost", { post: post });
+  } else {
+    res.render("partials/createPost");
+  }
 });
 
 router.post("/:id", async (req, res) => {

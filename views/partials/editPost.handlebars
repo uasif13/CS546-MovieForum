@@ -1,0 +1,97 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/trending">
+            <img alt="FilmCult" src="../../public/assets/titleIcon.svg" class="d-inline-block align-top" id="logo">
+        </a>
+        <div class="collapse navbar-collapse" id="navBar Supported Content">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/trending">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link active dropdown-toggle" href="#" id="navBarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Create
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navBarDropdown">
+                        <li><a class="dropdown-item" href="/posts/createPostPage" id="postLink">Create Post</a></li>
+                        <li><a class="dropdown-item" href="/movies/create" id="movieLink">Create Movie</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/search">Search</a>
+                </li>
+            </ul>
+            <div class="d-flex">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navBarUserDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <img alt="User Profile" src="../../public/assets/userIcon.svg">
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navBarUserDropdown">
+                        <li><a class="dropdown-item" href="/user" id="userLink">User Profile</a></li>
+                        <li><a class="dropdown-item" href="/logout" id="logoutLink">Log Out</a></li>
+                    </ul>
+                </li>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="container justify-content-center">
+    <div class="row">
+        <h1>Edit post</h1>
+    </div>
+    <form autocomplete="off" action="/edits/{{post._id}}" method="POST" id="postForm">
+        <div class="mb-3">
+            <input type="hidden" name="postID" value={{post._id}} />
+        </div>
+        <div class="mb-3">
+            <label id="labelPostTitle" class="form-label">
+                Post Title
+                <input class="form-control" type="text" name="title" id="postTitleInput" value={{post.postTitle}} />
+            </label>
+        </div>
+        <div class="mb-3">
+            <label id="labelPostDescription" class="form-label">
+                Description of Post
+                <input class="form-control" type="text" name="description" id="postDescriptionInput"
+                    value={{post.postBody}} rows="3"></input>
+            </label>
+        </div>
+        <div class="mb-3">
+            <label id="labelPostImage" class="form-label">
+                Choose image from assets folder
+                <input class="form-control" type="file" name="image" id="postImageInput" />
+            </label>
+        </div>
+        <div class="mb-3">
+            <label id="labelMovieGenres" class="form-label">
+                Select Post Tags (Hold CTRL to select multiple tags)
+                <select class="form-select" multiple name="tags" aria-label="tags" id="postTagsInput">
+                    <option selected>Choose tags for your posts</option>
+                    <option value="News">News</option>
+                    <option value="Discussion">Discussion</option>
+                    <option value="Review">Review</option>
+                    <option value="Trailers">Trailers</option>
+                    <option value="Question">Question</option>
+                    <option value="Recommendation">Recommendation</option>
+                    <option value="Article">Article</option>
+                    <option value="Spoilers">Spoilers</option>
+                </select>
+            </label>
+        </div>
+        <button type="submit" class="btn btn-primary">Edit Post</button>
+    </form>
+</div>
+<footer id="footer">
+    <div class="container">
+        <div class="row">
+            <div id="footerCenter">
+                <div class="col">
+                    <a href="/trending" id="footerLink">Back to main page</a>
+                    <p>&copy; FilmCult</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

@@ -1,1 +1,95 @@
 /* Insert Css here */
+/* #postLink, */
+body {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue",
+    Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
+}
+#recTitle {
+  display: none;
+}
+#hideLink {
+  display: none;
+}
+#image {
+  width: 100;
+  height: 100;
+}
+
+.navBar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.navBar ul li {
+  display: inline;
+}
+
+.navBar {
+  background-color: #a9a9a9;
+}
+
+#footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
+#logo {
+  width: 41px;
+  height: 32px;
+}
+
+#landingMessageCenter {
+  margin-top: 100px;
+  margin-bottom: 100px;
+  text-align: center;
+}
+
+.nav-item.dropdown {
+  list-style-type: none;
+}
+
+#footerCenter {
+  text-align: center;
+}
+
+#footer {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+#footerLink {
+  color: #2b2d2f;
+}
+
+.card {
+  padding: 10px;
+  margin: 5px;
+}
+
+.commentName {
+  font-weight: bold;
+}
+
+.postImg {
+  text-align: center;
+}
+
+.movieCard {
+  text-align: center;
+}
+
+.btn-secondary {
+  margin: 5px;
+}
+
+.commentCard {
+  font-size: smaller;
+}
+
+.likes {
+  text-align: right;
+  font-size: xx-small;
+}

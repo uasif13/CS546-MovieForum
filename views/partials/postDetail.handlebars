@@ -1,0 +1,13 @@
+<div id="post">
+    <h1>
+        {{post.postTitle}} authored by {{post.authorName}} about {{movie.title}}
+    </h1>
+    <p>{{post.postBody}}</p>
+</div>
+
+<a id="rec" href="/{{post.postMovieId}}">Liked {{movie.title}}? Click here for movies like it!</a>
+<h3 id="recTitle">Recommendations</h3>
+<ul id="recommendations">
+</ul>
+<a href="/posts/{{post._id}}" id="postLink">Back to Post</a>
+{{!-- <script type="text/javascript" src="/public/js/trending.js"></script> --}}

@@ -5,8 +5,11 @@ const session = require('express-session')
 const configRoutes = require('./routes')
 const exphbs = require('express-handlebars')
 
+app.use("/public", static)
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
+app.engine('handlebars', exphbs({defaultLayout: 'main'}))
+app.set('view engine', 'handlebars')
 
 app.use(
     session({
@@ -14,12 +17,12 @@ app.use(
         secret: 'secret',
         resave: false,
         saveUninitialized: true,
+        cookie: {
+            maxAge: 1800000 //expire after 30minutes
+        }
     })
 )
 // Insert middleware functions
-app.use('/public', static);
-app.engine('handlebars', exphbs({defaultLayout: 'main'}))
-app.set('view engine', 'handlebars')
 configRoutes(app)
 
 app.listen(3000, () => {

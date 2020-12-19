@@ -1,0 +1,109 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/trending">
+            <img alt="FilmCult" src="../../public/assets/titleIcon.svg" class="d-inline-block align-top" id="logo">
+        </a>
+        <div class="collapse navbar-collapse" id="navBar Supported Content">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/trending">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link active dropdown-toggle" href="#" id="navBarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Create
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navBarDropdown">
+                        <li><a class="dropdown-item" href="/posts/createPostPage" id="postLink">Create Post</a></li>
+                        <li><a class="dropdown-item" href="/movies/create" id="movieLink">Create Movie</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/search">Search</a>
+                </li>
+            </ul>
+            <div class="d-flex">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navBarUserDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <img alt="User Profile" src="../../public/assets/userIcon.svg">
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navBarUserDropdown">
+                        <li><a class="dropdown-item" href="/user" id="userLink">User Profile</a></li>
+                        <li><a class="dropdown-item" href="/logout" id="logoutLink">Log Out</a></li>
+                    </ul>
+                </li>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="container justify-content-center">
+    <div class="row">
+        <h1>Create a movie</h1>
+    </div>
+    <form action="/movies" method="POST" id="movieForm">
+        <div class="mb-3">
+            <label id="labelMovieTitle" class="form-label">
+                Title of Movie
+                <input class="form-control" type="text" name="title" id="movieTitleInput" placeholder="Movie Title" />
+            </label>
+        </div>
+        <div class="mb-3">
+            <label id="labelMovieDescription" class="form-label">
+                Description of Movie
+                <textarea class="form-control" type="text" name="description" id="movieDescriptionInput"
+                    rows="3"></textarea>
+            </label>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" id="labelMovieBudget">
+                Budget
+                <input class="form-control" type="number" name="budget" id="movieBudgetInput" />
+            </label>
+        </div>
+        <div class="mb-3">
+            <label id="labelMovieImage" class="form-label">
+                Choose image from assets folder
+                <input class="form-control" type="file" name="image" id="movieImageInput" />
+            </label>
+        </div>
+        <div class="mb-3">
+            <label id="labelMovieGenres" class="form-label">
+                Select Movie Genres
+                <select class="form-select" multiple name="genres" id="movieGenresInput" aria-label="genres">
+                    <option selected disabled>Choose the genres of the movie</option>
+                    <option value="Adventure">Adventure</option>
+                    <option value="Action">Action</option>
+                    <option value="Drama">Drama</option>
+                    <option value="Comedy">Comedy</option>
+                    <option value="Thriller">Thriller</option>
+                    <option value="Horror">Horror</option>
+                    <option value="Romantic Comedy">Romantic Comedy</option>
+                    <option value="Musical">Musical</option>
+                    <option value="Documentary">Documentary</option>
+                    <option value="Romance">Romance</option>
+                    <option value="Animation">Animation</option>
+                    <option value="Science Fiction">Science Fiction</option>
+                </select>
+            </label>
+        </div>
+        <button type="submit" class="btn btn-primary">Create Movie</button>
+    </form>
+</div>
+<div>
+    <ul id="errorStatements"></ul>
+    <p id="successStatements">Movie has been successfully added to database. Navigate with links above</p>
+</div>
+
+<footer class="bg-light" id="footer">
+    <div class="container">
+        <div class="row">
+            <div id="footerCenter">
+                <div class="col">
+                    <a href="/trending" id="footerLink">Back to main page</a>
+                    <p>&copy; FilmCult</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
